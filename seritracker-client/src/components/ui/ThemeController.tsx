@@ -1,8 +1,8 @@
 import { useEffect, useState } from "preact/hooks"
 
 export default function ThemeController() {
-	// use theme from local storage if available or set light theme
 	const [theme, setTheme] = useState(() => {
+		// First check system theme config
 		if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
 			return "dark"
 		}
@@ -11,7 +11,6 @@ export default function ThemeController() {
 
 	const handleToggle = (e: any) => {
 		if (e.target.checked) {
-			// setTheme((prevTheme) => (prevTheme === "ligth" ? "dark" : "light"))
 			setTheme("light")
 		} else {
 			setTheme("dark")
