@@ -1,5 +1,6 @@
 ---
 import Footer from "@components/Footer.astro"
+import Navbar from "@components/Navbar.astro"
 
 interface Props {
 	title: string
@@ -20,15 +21,10 @@ const { title, summary } = Astro.props
 		<!-- TODO: Rewrite cacnonical -->
 		<link rel="canonical" href="https://vlorente.dev" />
 	</head>
-	<body class="bg-zinc-100">
+	<body>
+		<Navbar />
 		<slot />
 		<Footer />
-		<style is:global>
-			/* Improve Page speed */
-			/* https://css-tricks.com/almanac/properties/c/content-visibility/ */
-			img {
-				content-visibility: auto;
-			}
-		</style>
+		<style is:global></style>
 	</body><!-- TODO: SEO -->
 </html>

@@ -1,1 +1,130 @@
+---
+import ThemeController from "@components/ui/ThemeController"
 
+interface NavItem {
+	title: string
+	path?: string
+	childs?: NavItem[]
+}
+
+const menuItems: NavItem[] = [
+	{
+		title: "Viendo",
+		path: "/watching",
+	},
+	{
+		title: "Quiero Ver",
+		path: "/wish",
+	},
+	{
+		title: "Finalizadas",
+		path: "/finished",
+	},
+	{
+		title: "Perfil",
+		childs: [
+			{
+				title: "Mis Datos",
+				path: "/profile",
+			},
+			{
+				title: "Configuración",
+				path: "/setting",
+			},
+		],
+	},
+]
+---
+
+<div class="navbar bg-base-100">
+	<!-- Collapse Menu -->
+	<div class="navbar-start">
+		<div class="dropdown">
+			<div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					><path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 6h16M4 12h8m-8 6h16"></path></svg
+				>
+			</div>
+			<ul
+				class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+			>
+				{
+					menuItems &&
+						menuItems.map(({ title, path, childs }: NavItem) => (
+							<>
+								{childs ? (
+									// Pintar si tiene childs
+									<li>
+										<details>
+											<summary>{title}</summary>
+											<ul class="p-2">
+												{childs.map(({ title: cTitle, path: cPath }: NavItem) => (
+													<li>
+														<a href={cPath}>{cTitle}</a>
+													</li>
+												))}
+											</ul>
+										</details>
+									</li>
+								) : (
+									// Pintar si no tiene childs
+									<li>
+										<a href={path}>{title}</a>
+									</li>
+								)}
+							</>
+						))
+				}
+			</ul>
+		</div>
+		<a href="/" class="btn btn-ghost text-xl"
+			><span class="font-bold">Seri</span><span class="text-lime-600">Tracker</span
+			></a
+		>
+	</div>
+	<!-- Open menu -->
+	<div class="navbar-center hidden lg:flex">
+		<ul class="menu menu-horizontal px-1">
+			{
+				menuItems &&
+					menuItems.map(({ title, path, childs }: NavItem) => (
+						<>
+							{childs ? (
+								// Pintar si tiene childs
+								<li>
+									<details>
+										<summary>{title}</summary>
+										<ul class="p-2">
+											{childs.map(({ title: cTitle, path: cPath }: NavItem) => (
+												<li>
+													<a href={cPath}>{cTitle}</a>
+												</li>
+											))}
+										</ul>
+									</details>
+								</li>
+							) : (
+								// Pintar si no tiene childs
+								<li>
+									<a href={path}>{title}</a>
+								</li>
+							)}
+						</>
+					))
+			}
+		</ul>
+	</div>
+
+	<div class="navbar-end">
+		<ThemeController client:only />
+	</div>
+</div>

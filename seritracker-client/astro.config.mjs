@@ -8,5 +8,6 @@ export default defineConfig({
 	integrations: [
 		preact(),
 		tailwind(),
-	]
+	],
+	output: "hybrid"
 })
