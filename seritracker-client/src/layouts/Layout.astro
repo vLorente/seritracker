@@ -1,0 +1,34 @@
+---
+import Footer from "@components/Footer.astro"
+
+interface Props {
+	title: string
+	summary?: string
+}
+
+const { title, summary } = Astro.props
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<title>{title}</title>
+		<meta name="description" content={summary} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<!-- TODO: Rewrite cacnonical -->
+		<link rel="canonical" href="https://vlorente.dev" />
+	</head>
+	<body class="bg-zinc-100">
+		<slot />
+		<Footer />
+		<style is:global>
+			/* Improve Page speed */
+			/* https://css-tricks.com/almanac/properties/c/content-visibility/ */
+			img {
+				content-visibility: auto;
+			}
+		</style>
+	</body><!-- TODO: SEO -->
+</html>
