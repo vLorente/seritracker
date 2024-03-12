@@ -13,10 +13,10 @@ const { image, title, description } = Astro.props
 >
 	<div class="card">
 		<figure class="group-hover:brightness-[20%]">
-			<img src={image} alt={title} />
+			<img class="w-full" src={image} alt={title} />
 		</figure>
 		<p
-			class="group-hover:animate-fade-in-down invisible absolute bottom-0 left-0 right-0 px-2 text-white group-hover:visible"
+			class="invisible absolute bottom-0 left-0 right-0 px-2 text-white group-hover:visible group-hover:animate-fade-in-down"
 		>
 			{description}
 		</p>
