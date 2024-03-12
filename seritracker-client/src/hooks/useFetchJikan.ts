@@ -3,7 +3,7 @@ import { useEffect, useState } from "preact/hooks"
 
 const api = "https://api.jikan.moe/v4/anime"
 
-export default function useFetchMal() {
+export default function useFetchJikan() {
 	const [data, setData] = useState<AnimeResponse | null>(null)
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
@@ -11,8 +11,10 @@ export default function useFetchMal() {
 	useEffect(() => {
 		setLoading(true)
 
+		const req: Request = new Request(api)
+
 		const fetchData = async () => {
-			await fetch(api)
+			await fetch(req)
 				.then((res) => res.json())
 				.then((data: AnimeResponse) => {
 					setData(data)
