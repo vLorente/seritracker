@@ -6,7 +6,7 @@ interface OrderByProps {
 	className?: string
 }
 
-export default function OrderBy({ onSelect, className }: OrderByProps) {
+export default function OrderBySelector({ onSelect, className }: OrderByProps) {
 	const [selectedValue, setSelectedValue] = useState<OrderByEnum>(
 		OrderByEnum.Title
 	)
@@ -16,7 +16,7 @@ export default function OrderBy({ onSelect, className }: OrderByProps) {
 		return { value: value, key: key }
 	})
 
-	const combinedClassName = `select border-lime-600 w-full max-w-xs ${className || ""}`
+	const combinedClassName = `select border-lime-600 w-full max-w-xs hover:contrast-[110%] ${className || ""}`
 
 	const handleChange = (event: preact.JSX.TargetedEvent<HTMLSelectElement>) => {
 		const value = event.currentTarget.value as OrderByEnum

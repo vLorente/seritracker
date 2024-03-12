@@ -1,4 +1,4 @@
-enum MediaType {
+export enum MediaTypeEnum {
 	TV = "tv",
 	Movie = "movie",
 	OVA = "ova",
@@ -10,7 +10,7 @@ enum MediaType {
 	TVSpecial = "tv_special",
 }
 
-enum Rating {
+export enum Rating {
 	AllAges = "g",
 	PG = "pg",
 	PG13 = "pg13",
@@ -36,7 +36,7 @@ export interface AnimeQuery {
 	page: number
 	limit: number
 	q: string
-	type: MediaType
+	type: MediaTypeEnum
 	rating: Rating
 	orderBy: OrderByEnum
 	sort: "desc" | "asc"
