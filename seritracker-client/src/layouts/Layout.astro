@@ -11,7 +11,7 @@ const { title, summary } = Astro.props
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" class="scroll-smooth" data-theme="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<title>{title}</title>
@@ -25,6 +25,36 @@ const { title, summary } = Astro.props
 		<Navbar />
 		<slot />
 		<Footer />
-		<style is:global></style>
+		<style is:global>
+			:root {
+				color-scheme: dark;
+				--entry-animation: -20px;
+				--cover-animation: 20px;
+			}
+
+			@media (min-width: 1400px) {
+				:root {
+					--entry-animation: -100px;
+					--cover-animation: 100px;
+				}
+			}
+
+			::-webkit-scrollbar {
+				width: 8px;
+			}
+			::-webkit-scrollbar-track {
+				background: transparent;
+				backdrop-filter: blur(10px);
+				border-radius: 5px;
+			}
+			::-webkit-scrollbar-thumb {
+				background: rgba(255, 255, 255, 0.3);
+				backdrop-filter: blur(10px);
+				border-radius: 5px;
+			}
+			::-webkit-scrollbar-thumb:hover {
+				background: rgba(255, 255, 255, 0.5);
+			}
+		</style>
 	</body><!-- TODO: SEO -->
 </html>
