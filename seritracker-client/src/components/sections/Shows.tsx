@@ -15,12 +15,13 @@ export default function Shows() {
 
 	return (
 		<section className="max-w-8xl mx-auto px-5 py-20 md:px-20">
-			<div>
+			<div className="mb-4 gap-1">
+				<p className="font-medium">Ordenar</p>
 				<OrderBy onSelect={handleOrderByChange} />
 			</div>
 			<div className="grid content-start gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
 				{data &&
-					data!.data.map(({ title, synopsis, images }) => (
+					data.data.map(({ title, synopsis, images }) => (
 						<Card
 							title={title}
 							description={synopsis}
@@ -29,9 +30,10 @@ export default function Shows() {
 					))}
 			</div>
 			{loading && (
-				<>
+				<div className="flex h-20 items-center justify-center">
 					<Loading className="bg-lime-600" />
-				</>
+					<p className="text-lg text-gray-600">Cargando series...</p>
+				</div>
 			)}
 		</section>
 	)

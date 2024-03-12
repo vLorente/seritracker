@@ -3,12 +3,20 @@ import { useState } from "preact/hooks"
 
 interface OrderByProps {
 	onSelect: (selectedValue: OrderByEnum) => void
+	className?: string
 }
 
-const OrderBy: preact.FunctionalComponent<OrderByProps> = ({ onSelect }) => {
+export default function OrderBy({ onSelect, className }: OrderByProps) {
 	const [selectedValue, setSelectedValue] = useState<OrderByEnum>(
 		OrderByEnum.Title
 	)
+
+	const selectItems = Object.keys(OrderByEnum).map((key) => {
+		const value = OrderByEnum[key as keyof typeof OrderByEnum]
+		return { value: value, key: key }
+	})
+
+	const combinedClassName = `select border-lime-600 w-full max-w-xs ${className || ""}`
 
 	const handleChange = (event: preact.JSX.TargetedEvent<HTMLSelectElement>) => {
 		const value = event.currentTarget.value as OrderByEnum
@@ -17,14 +25,19 @@ const OrderBy: preact.FunctionalComponent<OrderByProps> = ({ onSelect }) => {
 	}
 
 	return (
-		<select value={selectedValue} onChange={handleChange}>
-			{Object.values(OrderByEnum).map((value) => (
-				<option key={value} value={value}>
-					{value}
+		<select
+			className={combinedClassName}
+			value={selectedValue}
+			onChange={handleChange}
+		>
+			<option disabled selected>
+				Ordenar por
+			</option>
+			{selectItems.map(({ key, value }) => (
+				<option key={key} value={value}>
+					{key}
 				</option>
 			))}
 		</select>
 	)
 }
-
-export default OrderBy
