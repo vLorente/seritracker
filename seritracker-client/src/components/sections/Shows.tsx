@@ -1,6 +1,7 @@
 import Card from "@components/ui/Card.tsx"
 import Loading from "@components/ui/Loading.tsx"
 import OrderBySelector from "@components/ui/OrderBySelector.tsx"
+import Search from "@components/ui/Search"
 import SortSwap from "@components/ui/SortSwap.tsx"
 import useFetchJikan from "@hooks/useFetchJikan.ts"
 import { OrderByEnum } from "@interfaces/animeQuery.ts"
@@ -21,16 +22,36 @@ export default function Shows() {
 
 	return (
 		<section className="max-w-8xl mx-auto px-5 py-20 md:px-20">
-			<div className="mb-4 gap-1">
-				<p className="font-medium">Ordenar</p>
-				<div className="flex flex-row">
-					<OrderBySelector onSelect={handleOrderBySelectChange} />
-					<SortSwap
-						className="text-lime-600 hover:text-lime-800"
-						onSwap={handleOrderBySwapChange}
-					/>
+			{/* MD en adelante */}
+			<header className="mb-4 hidden flex-row items-end justify-between gap-1 md:visible md:flex">
+				<Search />
+				<div>
+					<p className="font-medium">Ordenar</p>
+					<div className="flex flex-row">
+						<OrderBySelector onSelect={handleOrderBySelectChange} />
+						<SortSwap
+							className="text-lime-600 hover:text-lime-800"
+							onSwap={handleOrderBySwapChange}
+						/>
+					</div>
 				</div>
-			</div>
+			</header>
+			{/* Mobile */}
+			<header className="mb-4 flex-col items-end justify-between sm:flex md:hidden">
+				<Search />
+				<div>
+					<p className="font-medium">Ordenar</p>
+					<div className="flex flex-row">
+						<OrderBySelector onSelect={handleOrderBySelectChange} />
+						<SortSwap
+							className="text-lime-600 hover:text-lime-800"
+							onSwap={handleOrderBySwapChange}
+						/>
+					</div>
+				</div>
+			</header>
+
+			{/* Shows Grid */}
 			<div className="grid content-start gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
 				{data &&
 					data.data.map(({ title, synopsis, images }) => (

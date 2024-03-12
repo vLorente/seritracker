@@ -8,7 +8,7 @@ interface OrderByProps {
 
 export default function OrderBySelector({ onSelect, className }: OrderByProps) {
 	const [selectedValue, setSelectedValue] = useState<OrderByEnum>(
-		OrderByEnum.Title
+		OrderByEnum.Popularity
 	)
 
 	const selectItems = Object.keys(OrderByEnum).map((key) => {
