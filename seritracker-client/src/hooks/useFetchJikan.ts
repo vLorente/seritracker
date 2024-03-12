@@ -1,4 +1,4 @@
-import { MediaTypeEnum, OrderByEnum } from "@interfaces/animeQuery"
+import { MediaTypeEnum, OrderByEnum, Rating } from "@interfaces/animeQuery"
 import type { AnimeResponse } from "@interfaces/animeResponse.ts"
 import { useEffect, useState } from "preact/hooks"
 
@@ -20,6 +20,14 @@ export default function useFetchJikan(
 		// MediaTypeEnum.Special,
 	]
 
+	const defaultRatings = [
+		Rating.AllAges,
+		Rating.PG,
+		Rating.PG13,
+		Rating.R17,
+		Rating.Nudity,
+	]
+
 	const queryParams = new URLSearchParams({
 		order_by: orderBy,
 		sort: sort,
@@ -27,6 +35,10 @@ export default function useFetchJikan(
 
 	defaultMediaTypes.forEach((item) => {
 		queryParams.append("type", item)
+	})
+
+	defaultRatings.forEach((item) => {
+		queryParams.append("rating", item)
 	})
 
 	const url = `${api}?${queryParams.toString()}`
