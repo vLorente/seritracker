@@ -7,8 +7,8 @@ import { OrderByEnum } from "@interfaces/animeQuery.ts"
 import { useState } from "preact/hooks"
 
 export default function Shows() {
-	const [orderBy, setOrderBySel] = useState(OrderByEnum.Title)
-	const [sort, setSort] = useState<"asc" | "desc">("desc")
+	const [orderBy, setOrderBySel] = useState(OrderByEnum.Popularity)
+	const [sort, setSort] = useState<"asc" | "desc">("asc")
 	const { data, error, loading } = useFetchJikan(orderBy, sort)
 
 	const handleOrderBySelectChange = (selectedValue: OrderByEnum) => {
