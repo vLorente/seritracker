@@ -15,7 +15,7 @@ dependencies:
     specifier: 4.5.0
     version: 4.5.0(@types/node@20.11.25)(typescript@5.3.3)
   preact:
-    specifier: ^10.19.6
+    specifier: 10.19.6
     version: 10.19.6
 
 devDependencies:
@@ -23,7 +23,7 @@ devDependencies:
     specifier: 5.1.0
     version: 5.1.0(astro@4.5.0)(tailwindcss@3.4.1)
   '@midudev/tailwind-animations':
-    specifier: ^0.0.7
+    specifier: 0.0.7
     version: 0.0.7(tailwindcss@3.4.1)
   '@tailwindcss/forms':
     specifier: 0.5.7
@@ -35,13 +35,13 @@ devDependencies:
     specifier: 20.11.25
     version: 20.11.25
   '@types/react':
-    specifier: ^18.2.64
+    specifier: 18.2.64
     version: 18.2.64
   '@typescript-eslint/parser':
     specifier: 7.1.1
     version: 7.1.1(eslint@8.57.0)(typescript@5.3.3)
   daisyui:
-    specifier: ^4.7.3
+    specifier: 4.7.3
     version: 4.7.3(postcss@8.4.35)
   eslint:
     specifier: 8.57.0
@@ -56,7 +56,7 @@ devDependencies:
     specifier: 6.8.0
     version: 6.8.0(eslint@8.57.0)
   eslint-plugin-react:
-    specifier: ^7.34.0
+    specifier: 7.34.0
     version: 7.34.0(eslint@8.57.0)
   eslint-plugin-unused-imports:
     specifier: 3.1.0
