@@ -1,14 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+import animations from "@midudev/tailwind-animations"
+
 export default {
 	content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
 	theme: {
 		extend: {},
 	},
-	darkMode: "class",
+	darkMode: ["selector", "[data-theme=\"dark\"]"],
 	plugins: [
 		require("@tailwindcss/typography"),
 		require("@tailwindcss/forms"),
-		require("daisyui")
+		require("daisyui"),
+		animations
 	],
 
 	// daisyUI config (optional - here are the default values)
