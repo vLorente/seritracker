@@ -5,8 +5,8 @@ export default function Shows() {
 	const { data, error, loading } = useFetchMal()
 
 	return (
-		<section className="max-w-8xl mx-auto px-20 py-20">
-			<div class="grid grid-cols-1 content-start gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+		<section className="max-w-8xl mx-auto px-5 py-20 md:px-20">
+			<div class="grid content-start gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
 				{data &&
 					data!.data.map(({ title, synopsis, images }) => (
 						<Card
