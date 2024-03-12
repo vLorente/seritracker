@@ -25,7 +25,7 @@ export default function useFetchJikan(
 		Rating.PG,
 		Rating.PG13,
 		Rating.R17,
-		Rating.Nudity,
+		// Rating.Nudity,
 	]
 
 	const queryParams = new URLSearchParams({
