@@ -1,6 +1,7 @@
 import Card from "@components/ui/Card.tsx"
 import Loading from "@components/ui/Loading.tsx"
 import OrderBySelector from "@components/ui/OrderBySelector.tsx"
+import Pagination from "@components/ui/Pagination"
 import SearchBar from "@components/ui/SearchBar"
 import SortSwap from "@components/ui/SortSwap.tsx"
 import useFetchJikan from "@hooks/useFetchJikan.ts"
@@ -11,7 +12,8 @@ export default function Shows() {
 	const [orderBy, setOrderBySel] = useState(OrderByEnum.Popularity)
 	const [sort, setSort] = useState<"asc" | "desc">("asc")
 	const [search, setSearch] = useState<string>("")
-	const { data, error, loading } = useFetchJikan(orderBy, sort, search)
+	const [page, setPage] = useState<number>(1)
+	const { data, error, loading } = useFetchJikan(orderBy, sort, search, page)
 
 	const handleOrderBySelectChange = (selectedValue: OrderByEnum) => {
 		setOrderBySel(selectedValue)
@@ -25,24 +27,13 @@ export default function Shows() {
 		setSearch(searchValue)
 	}
 
+	const handlePage = (pageValue: number) => {
+		setPage(pageValue)
+	}
+
 	return (
 		<section className="max-w-8xl mx-auto px-5 py-20 md:px-20">
-			{/* MD en adelante */}
-			<header className="mb-4 hidden flex-row items-end justify-between gap-1 md:visible md:flex">
-				<SearchBar onSearch={handleSearchChange} />
-				<div>
-					<p className="font-medium">Ordenar</p>
-					<div className="flex flex-row">
-						<OrderBySelector onSelect={handleOrderBySelectChange} />
-						<SortSwap
-							className="text-lime-600 hover:text-lime-800"
-							onSwap={handleOrderBySwapChange}
-						/>
-					</div>
-				</div>
-			</header>
-			{/* Mobile */}
-			<header className="mb-4 flex-col items-end justify-between sm:flex md:hidden">
+			<header className="mb-4 flex flex-col items-end justify-between gap-1 sm:flex-row">
 				<SearchBar onSearch={handleSearchChange} />
 				<div>
 					<p className="font-medium">Ordenar</p>
@@ -57,22 +48,35 @@ export default function Shows() {
 			</header>
 
 			{/* Shows Grid */}
-			<div className="grid content-start gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-				{data &&
-					data.data.map(({ title, synopsis, images }) => (
-						<Card
-							title={title}
-							description={synopsis}
-							image={images.webp.large_image_url}
-						/>
-					))}
-			</div>
-			{loading && (
-				<div className="flex h-20 items-center justify-center">
-					<Loading className="bg-lime-600" />
-					<p className="text-lg text-gray-600">Cargando series...</p>
+			<body>
+				<div className="grid content-start gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+					{data &&
+						data.data.map(({ title, synopsis, images }) => (
+							<Card
+								title={title}
+								description={synopsis}
+								image={images.webp.large_image_url}
+							/>
+						))}
 				</div>
-			)}
+				{loading && (
+					<div className="flex h-20 items-center justify-center">
+						<Loading className="bg-lime-600" />
+						<p className="text-lg text-gray-600">Cargando series...</p>
+					</div>
+				)}
+			</body>
+
+			{/* Pagination */}
+			<footer className="flex items-center justify-center pt-4">
+				{!loading && (
+					<Pagination
+						page={data?.pagination.current_page || 0}
+						hasNext={data?.pagination.has_next_page || false}
+						onPageChange={handlePage}
+					/>
+				)}
+			</footer>
 		</section>
 	)
 }

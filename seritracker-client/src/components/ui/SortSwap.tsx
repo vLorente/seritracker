@@ -1,21 +1,19 @@
-import { useState } from "preact/hooks"
-
 interface SortSwapProps {
 	onSwap: (sortValue: "asc" | "desc") => void
 	className?: string
 }
 
 export default function OrderBySwap({ onSwap, className }: SortSwapProps) {
-	const [sortValue, setSortValue] = useState<"asc" | "desc">("desc")
+	// const [sortValue, setSortValue] = useState<"asc" | "desc">("desc")
 
 	const combinedClasName = `swap swap-rotate rounded-3xl ${className}`
 
 	const handleToggle = (e: any) => {
 		if (e.target.checked) {
-			setSortValue("desc")
+			// setSortValue("desc")
 			onSwap("desc")
 		} else {
-			setSortValue("asc")
+			// setSortValue("asc")
 			onSwap("asc")
 		}
 	}

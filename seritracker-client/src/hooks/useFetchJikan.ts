@@ -1,11 +1,12 @@
-import { MediaTypeEnum, OrderByEnum, Rating } from "@interfaces/animeQuery"
+import { MediaTypeEnum, OrderByEnum } from "@interfaces/animeQuery"
 import type { AnimeResponse } from "@interfaces/animeResponse.ts"
 import { useEffect, useState } from "preact/hooks"
 
 export default function useFetchJikan(
 	orderBy: OrderByEnum = OrderByEnum.Popularity,
 	sort: "asc" | "desc",
-	search: string
+	search: string,
+	page: number
 ) {
 	const api = "https://api.jikan.moe/v4/anime"
 	const [data, setData] = useState<AnimeResponse | null>(null)
@@ -20,18 +21,19 @@ export default function useFetchJikan(
 		// MediaTypeEnum.Special,
 	]
 
-	const defaultRatings = [
-		Rating.AllAges,
-		Rating.PG,
-		Rating.PG13,
-		Rating.R17,
-		// Rating.Nudity,
-	]
+	// const defaultRatings = [
+	// 	Rating.AllAges,
+	// 	Rating.PG,
+	// 	Rating.PG13,
+	// 	Rating.R17,
+	// 	// Rating.Nudity,
+	// ]
 
 	const queryParams = new URLSearchParams({
 		order_by: orderBy,
 		sort: sort,
 		q: search,
+		page: page.toString(),
 	})
 
 	defaultMediaTypes.forEach((item) => {
@@ -60,7 +62,7 @@ export default function useFetchJikan(
 	useEffect(() => {
 		setLoading(true)
 		fetchData()
-	}, [orderBy, sort, search])
+	}, [orderBy, sort, search, page])
 
 	return { data, error, loading }
 }
