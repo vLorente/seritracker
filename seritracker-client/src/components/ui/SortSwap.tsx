@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks"
 
 interface SortSwapProps {
-	onSwap: (swapValue: "asc" | "desc") => void
+	onSwap: (sortValue: "asc" | "desc") => void
 	className?: string
 }
 

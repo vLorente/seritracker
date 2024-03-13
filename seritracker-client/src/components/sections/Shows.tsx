@@ -1,7 +1,7 @@
 import Card from "@components/ui/Card.tsx"
 import Loading from "@components/ui/Loading.tsx"
 import OrderBySelector from "@components/ui/OrderBySelector.tsx"
-import Search from "@components/ui/Search"
+import SearchBar from "@components/ui/SearchBar"
 import SortSwap from "@components/ui/SortSwap.tsx"
 import useFetchJikan from "@hooks/useFetchJikan.ts"
 import { OrderByEnum } from "@interfaces/animeQuery.ts"
@@ -10,7 +10,8 @@ import { useState } from "preact/hooks"
 export default function Shows() {
 	const [orderBy, setOrderBySel] = useState(OrderByEnum.Popularity)
 	const [sort, setSort] = useState<"asc" | "desc">("asc")
-	const { data, error, loading } = useFetchJikan(orderBy, sort)
+	const [search, setSearch] = useState<string>("")
+	const { data, error, loading } = useFetchJikan(orderBy, sort, search)
 
 	const handleOrderBySelectChange = (selectedValue: OrderByEnum) => {
 		setOrderBySel(selectedValue)
@@ -20,11 +21,15 @@ export default function Shows() {
 		setSort(swapValue)
 	}
 
+	const handleSearchChange = (searchValue: string) => {
+		setSearch(searchValue)
+	}
+
 	return (
 		<section className="max-w-8xl mx-auto px-5 py-20 md:px-20">
 			{/* MD en adelante */}
 			<header className="mb-4 hidden flex-row items-end justify-between gap-1 md:visible md:flex">
-				<Search />
+				<SearchBar onSearch={handleSearchChange} />
 				<div>
 					<p className="font-medium">Ordenar</p>
 					<div className="flex flex-row">
@@ -38,7 +43,7 @@ export default function Shows() {
 			</header>
 			{/* Mobile */}
 			<header className="mb-4 flex-col items-end justify-between sm:flex md:hidden">
-				<Search />
+				<SearchBar onSearch={handleSearchChange} />
 				<div>
 					<p className="font-medium">Ordenar</p>
 					<div className="flex flex-row">
