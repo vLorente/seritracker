@@ -17,14 +17,17 @@ export default function Shows() {
 
 	const handleOrderBySelectChange = (selectedValue: OrderByEnum) => {
 		setOrderBySel(selectedValue)
+		setPage(1)
 	}
 
 	const handleOrderBySwapChange = (swapValue: "desc" | "asc") => {
 		setSort(swapValue)
+		setPage(1)
 	}
 
 	const handleSearchChange = (searchValue: string) => {
 		setSearch(searchValue)
+		setPage(1)
 	}
 
 	const handlePage = (pageValue: number) => {
