@@ -3,17 +3,13 @@ interface SortSwapProps {
 	className?: string
 }
 
-export default function OrderBySwap({ onSwap, className }: SortSwapProps) {
-	// const [sortValue, setSortValue] = useState<"asc" | "desc">("desc")
-
+export default function SortSwap({ onSwap, className }: SortSwapProps) {
 	const combinedClasName = `swap swap-rotate rounded-3xl ${className}`
 
 	const handleToggle = (e: any) => {
 		if (e.target.checked) {
-			// setSortValue("desc")
 			onSwap("desc")
 		} else {
-			// setSortValue("asc")
 			onSwap("asc")
 		}
 	}
@@ -21,10 +17,16 @@ export default function OrderBySwap({ onSwap, className }: SortSwapProps) {
 	return (
 		<label className={combinedClasName}>
 			{/* this hidden checkbox controls the state */}
-			<input onClick={handleToggle} className="hidden" type="checkbox" />
+			<input
+				data-testid="checkbox"
+				onClick={handleToggle}
+				className="hidden"
+				type="checkbox"
+			/>
 
 			{/* arrow down */}
 			<svg
+				data-testid="arrowDown"
 				xmlns="http://www.w3.org/2000/svg"
 				className="swap-on h-10 w-10 fill-current"
 				viewBox="0 0 512 512"
@@ -42,6 +44,7 @@ export default function OrderBySwap({ onSwap, className }: SortSwapProps) {
 
 			{/* arrow up */}
 			<svg
+				data-testid="arrowUp"
 				xmlns="http://www.w3.org/2000/svg"
 				className="swap-off h-10 w-10 fill-current"
 				viewBox="0 0 512 512"
