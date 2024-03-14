@@ -1,5 +1,8 @@
 name: Quality Checks
 on: [push]
+defaults:
+  run:
+    working-directory: seritracker-client
 jobs:
   avoid-redundancy:
     runs-on: ubuntu-latest
@@ -26,6 +29,7 @@ jobs:
           run: pnpm run format:check
   
   unit_test:
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v4
