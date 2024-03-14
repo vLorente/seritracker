@@ -39,8 +39,10 @@ export default function Shows() {
 			<header className="mb-4 flex flex-col items-end justify-between gap-1 sm:flex-row">
 				<SearchBar initialKeyword={search} onSearch={handleSearchChange} />
 				<div>
-					<p className="font-medium">Ordenar</p>
-					<div className="flex flex-row">
+					<label htmlFor="order" className="font-medium">
+						Ordenar
+					</label>
+					<div id="order" className="flex flex-row">
 						<OrderBySelector onSelect={handleOrderBySelectChange} />
 						<SortSwap
 							className="text-lime-600 hover:text-lime-800"
