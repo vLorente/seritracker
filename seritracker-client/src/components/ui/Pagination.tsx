@@ -26,10 +26,6 @@ export default function Pagination({
 		onPageChange(page - 1)
 	}
 
-	console.log(
-		`Page: ${page} / nextClass: ${nextButtonClassName} / prevClass: ${previousButtonClassName}`
-	)
-
 	return (
 		<div className={combinedClassName}>
 			<button onClick={handlePrevious} className={previousButtonClassName}>
