@@ -3,11 +3,16 @@ import { useEffect, useState } from "preact/hooks"
 
 interface SearchBarProps {
 	className?: string
+	initialKeyword?: string
 	onSearch: (search: string) => void
 }
 
-export default function SearchBar({ className, onSearch }: SearchBarProps) {
-	const [searchValue, setSearchValue] = useState("")
+export default function SearchBar({
+	initialKeyword = "",
+	onSearch,
+	className = "",
+}: SearchBarProps) {
+	const [searchValue, setSearchValue] = useState(initialKeyword)
 	const debouncedSearch = useDebounce(searchValue)
 
 	const combinedClassName = `input input-bordered flex items-center gap-2 border-lime-600 hover:contrast-[110%] ${className}`

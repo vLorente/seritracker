@@ -37,7 +37,7 @@ export default function Shows() {
 	return (
 		<section className="max-w-8xl mx-auto px-5 py-20 md:px-20">
 			<header className="mb-4 flex flex-col items-end justify-between gap-1 sm:flex-row">
-				<SearchBar onSearch={handleSearchChange} />
+				<SearchBar initialKeyword={search} onSearch={handleSearchChange} />
 				<div>
 					<p className="font-medium">Ordenar</p>
 					<div className="flex flex-row">
