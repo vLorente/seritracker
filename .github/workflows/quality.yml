@@ -1,0 +1,40 @@
+name: Quality Checks
+on: [push]
+jobs:
+  avoid-redundancy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Workflow Redundancy
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          access_token: ${{ github.token }}
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        - uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Install dependencies
+          run: npm install -g pnpm && pnpm install
+        - name: Lint
+          run: pnpm run lint
+        - name: Prettier
+          run: pnpm run format:check
+  
+  unit_test:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        - uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Install dependencies
+          run: npm install -g pnpm && pnpm install
+        - name: Run Vitest
+          run: pnpm run test:unit
