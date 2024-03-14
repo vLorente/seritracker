@@ -13,21 +13,7 @@ export default function useFetchJikan(
 	const [error, setError] = useState<Error | null>(null)
 	const [loading, setLoading] = useState(false)
 
-	const defaultMediaTypes = [
-		MediaTypeEnum.TV,
-		// MediaTypeEnum.Movie,
-		// MediaTypeEnum.ONA,
-		// MediaTypeEnum.OVA,
-		// MediaTypeEnum.Special,
-	]
-
-	// const defaultRatings = [
-	// 	Rating.AllAges,
-	// 	Rating.PG,
-	// 	Rating.PG13,
-	// 	Rating.R17,
-	// 	// Rating.Nudity,
-	// ]
+	const defaultMediaTypes = [MediaTypeEnum.TV]
 
 	const queryParams = new URLSearchParams({
 		order_by: orderBy,
@@ -39,10 +25,6 @@ export default function useFetchJikan(
 	defaultMediaTypes.forEach((item) => {
 		queryParams.append("type", item)
 	})
-
-	// defaultRatings.forEach((item) => {
-	// 	queryParams.append("rating", item)
-	// })
 
 	const url = `${api}?${queryParams.toString()}`
 
