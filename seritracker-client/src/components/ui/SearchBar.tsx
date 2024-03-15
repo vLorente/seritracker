@@ -31,6 +31,7 @@ export default function SearchBar({
 	// Manejar el evento de teclado # + K para hacer focus en el Input
 	const type = "keypress"
 	const event = new KeyboardEvent(type, {
+		key: "k",
 		code: "KeyK",
 		ctrlKey: false,
 		altKey: false,

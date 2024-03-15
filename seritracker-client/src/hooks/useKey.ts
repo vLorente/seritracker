@@ -13,6 +13,7 @@ export default function useKey(
 	): boolean => {
 		const result: boolean[] = []
 
+		result.push(current.key.toLowerCase() === target.key.toLowerCase())
 		result.push(current.code === target.code)
 		result.push(current.altKey === target.altKey)
 		result.push(current.ctrlKey === target.ctrlKey)
@@ -24,7 +25,7 @@ export default function useKey(
 
 	useEffect(() => {
 		callbackRef.current = callback
-	})
+	}, [callback])
 
 	useEffect(() => {
 		const handle = (event: KeyboardEvent) => {
@@ -32,7 +33,6 @@ export default function useKey(
 				callbackRef.current(event)
 			}
 		}
-
 		document.addEventListener(typeEvent, handle)
 
 		return () => document.removeEventListener(typeEvent, handle)
