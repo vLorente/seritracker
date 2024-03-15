@@ -78,4 +78,4 @@ Si tienes alguna pregunta o encuentras algún problema mientras trabajas en el p
 
 ## Licencia 📝
 
-Este proyecto está bajo la [Licencia MIT](LICENSE).
+Este proyecto está bajo la [Licencia MIT](LICENSE.txt).
