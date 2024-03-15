@@ -4,7 +4,6 @@ import { describe, expect, it, vi } from "vitest"
 
 let page = 1
 const mockOnPageChange = vi.fn((value) => {
-	console.log(`mock fun -> ${page} -> ${value}`)
 	page = value
 })
 
