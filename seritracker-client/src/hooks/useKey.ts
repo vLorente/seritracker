@@ -2,7 +2,7 @@ import { useEffect, useRef } from "preact/hooks"
 
 export default function useKey(
 	typeEvent: "keydown" | "keyup" | "keypress",
-	keyEvent: KeyboardEvent,
+	targetKeyEvent: KeyboardEvent,
 	callback: any
 ) {
 	const callbackRef = useRef(callback)
@@ -28,7 +28,7 @@ export default function useKey(
 
 	useEffect(() => {
 		const handle = (event: KeyboardEvent) => {
-			if (compareEvents(event, keyEvent)) {
+			if (compareEvents(event, targetKeyEvent)) {
 				callbackRef.current(event)
 			}
 		}
@@ -36,5 +36,5 @@ export default function useKey(
 		document.addEventListener(typeEvent, handle)
 
 		return () => document.removeEventListener(typeEvent, handle)
-	}, [keyEvent])
+	}, [typeEvent, targetKeyEvent])
 }
