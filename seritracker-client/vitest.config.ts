@@ -7,6 +7,6 @@ export default getViteConfig({
 		environment: "jsdom",
 		setupFiles: "./test/setup.ts",
 		css: true,
-		// reporters: ["html"],
+		reporters: ["html", "default"],
 	},
 })

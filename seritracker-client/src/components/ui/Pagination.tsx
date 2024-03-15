@@ -1,3 +1,5 @@
+import { useState } from "preact/hooks"
+
 interface PaginationProps {
 	className?: string
 	page: number
@@ -11,6 +13,7 @@ export default function Pagination({
 	hasNext,
 	onPageChange,
 }: PaginationProps) {
+	const [pageValue, setPage] = useState<number>(page)
 	const combinedClassName = `join ${className}`
 	const previousButtonClassName =
 		page <= 1 ? "btn join-item btn-disabled" : "btn join-item"
@@ -19,11 +22,13 @@ export default function Pagination({
 		: "btn join-item btn-disabled"
 
 	const handleNext = (e: any) => {
-		onPageChange(page + 1)
+		setPage(pageValue + 1)
+		onPageChange(pageValue + 1)
 	}
 
 	const handlePrevious = (e: any) => {
-		onPageChange(page - 1)
+		setPage(pageValue - 1)
+		onPageChange(pageValue - 1)
 	}
 
 	return (
@@ -31,7 +36,7 @@ export default function Pagination({
 			<button onClick={handlePrevious} className={previousButtonClassName}>
 				«
 			</button>
-			<label className="btn btn-disabled join-item">Página {page}</label>
+			<label className="btn btn-disabled join-item">Página {pageValue}</label>
 			<button onClick={handleNext} className={nextButtonClassName}>
 				»
 			</button>
