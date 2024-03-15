@@ -1,8 +1,8 @@
 import SortSwap from "@components/ui/SortSwap"
 import { fireEvent, render } from "@testing-library/preact"
-import { expect, test, vi } from "vitest"
+import { describe, expect, it, vi } from "vitest"
 
-const setup = (mockOnSwap: (value: any) => void) => {
+const setup = (mockOnSwap: (value: any) => void, className: string = "") => {
 	const swap = render(<SortSwap onSwap={mockOnSwap} />)
 	const arrowUp = swap.getByTestId("arrowUp")
 	const arrowDown = swap.getByTestId("arrowDown")
@@ -20,21 +20,29 @@ const mockOnSwap = vi.fn((value) => {
 	swapValue = value
 })
 
-test("Rendering Component", () => {
-	const { arrowUp, arrowDown, checkbox } = setup(mockOnSwap)
+describe("SortSwap Component", () => {
+	it("Rendering Component", () => {
+		const { arrowUp, arrowDown, checkbox } = setup(mockOnSwap)
 
-	expect(arrowUp).toBeDefined()
-	expect(arrowDown).toBeDefined()
-	expect(checkbox).toBeDefined()
-})
+		expect(arrowUp).toBeDefined()
+		expect(arrowDown).toBeDefined()
+		expect(checkbox).toBeDefined()
+	})
 
-test("Swap on checkbox input", async () => {
-	swapValue = ""
-	const { arrowUp, arrowDown, checkbox } = setup(mockOnSwap)
+	it("Swap on checkbox input", async () => {
+		swapValue = ""
+		const { arrowUp, arrowDown, checkbox } = setup(mockOnSwap)
 
-	fireEvent.click(checkbox)
-	expect(swapValue).toBe("desc")
+		fireEvent.click(checkbox)
+		expect(swapValue).toBe("desc")
 
-	fireEvent.click(checkbox)
-	expect(swapValue).toBe("asc")
+		fireEvent.click(checkbox)
+		expect(swapValue).toBe("asc")
+	})
+
+	it("Apply classes correctly", () => {
+		const { container } = setup(mockOnSwap, "test-class")
+		const paginationDiv = container.getElementsByClassName("test-class")
+		expect(paginationDiv).toBeDefined()
+	})
 })

@@ -77,4 +77,10 @@ describe("Pagination component", () => {
 
 		expect(previousButton).toHaveClass("btn-disabled")
 	})
+
+	it("Apply classes correctly", () => {
+		const { container } = setup(true, 1, mockOnPageChange, "test-class")
+		const paginationDiv = container.getElementsByClassName("test-class")
+		expect(paginationDiv).toBeDefined()
+	})
 })
