@@ -1,0 +1,29 @@
+---
+import EmptyResponse from "@components/EmptyResponse.astro"
+import Section from "@components/Section.astro"
+import Card from "@components/ui/Card"
+import { Finished as FinishedDB, db, eq } from "astro:db"
+
+const watchlist = await db
+	.select()
+	.from(FinishedDB)
+	.where(eq(FinishedDB.userId, 1))
+
+const emptyText = "🙁 Aún no tienes series en tu lista de finalizadas"
+---
+
+<Section>
+	{
+		watchlist.length > 0 ? (
+			watchlist.map(({ malItem }) => (
+				<Card
+					title={malItem?.title}
+					description={malItem?.synopsis}
+					image={malItem?.images.webp.large_image_url}
+				/>
+			))
+		) : (
+			<EmptyResponse text={emptyText} />
+		)
+	}
+</Section>
