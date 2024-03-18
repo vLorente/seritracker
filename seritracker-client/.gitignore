@@ -22,3 +22,7 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 .vercel
+
+# Astro DB
+seritracker-client@0.0.1
+astro
