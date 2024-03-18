@@ -1,5 +1,5 @@
 import { MediaTypeEnum, OrderByEnum } from "@interfaces/animeQuery"
-import type { AnimeResponse } from "@interfaces/animeResponse.ts"
+import type { AnimeResponse } from "@interfaces/animeResponse"
 import { useEffect, useState } from "preact/hooks"
 
 export default function useFetchJikan(

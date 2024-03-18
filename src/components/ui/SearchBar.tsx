@@ -1,4 +1,4 @@
-import useDebounce from "@hooks/useDebounce.ts"
+import useDebounce from "@hooks/useDebounce"
 import useKey from "@hooks/useKey"
 import { useEffect, useRef, useState } from "preact/hooks"
 

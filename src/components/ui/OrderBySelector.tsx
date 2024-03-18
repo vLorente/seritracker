@@ -1,4 +1,4 @@
-import { OrderByEnum } from "@interfaces/animeQuery.ts"
+import { OrderByEnum } from "@interfaces/animeQuery"
 import { useState } from "preact/hooks"
 
 interface OrderByProps {

@@ -1,11 +1,11 @@
-import Card from "@components/ui/Card.tsx"
-import Loading from "@components/ui/Loading.tsx"
-import OrderBySelector from "@components/ui/OrderBySelector.tsx"
+import Card from "@components/ui/Card"
+import Loading from "@components/ui/Loading"
+import OrderBySelector from "@components/ui/OrderBySelector"
 import Pagination from "@components/ui/Pagination"
 import SearchBar from "@components/ui/SearchBar"
-import SortSwap from "@components/ui/SortSwap.tsx"
-import useFetchJikan from "@hooks/useFetchJikan.ts"
-import { OrderByEnum } from "@interfaces/animeQuery.ts"
+import SortSwap from "@components/ui/SortSwap"
+import useFetchJikan from "@hooks/useFetchJikan"
+import { OrderByEnum } from "@interfaces/animeQuery"
 import { useState } from "preact/hooks"
 
 export default function Shows() {
