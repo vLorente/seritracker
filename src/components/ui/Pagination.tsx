@@ -21,12 +21,12 @@ export default function Pagination({
 		? "btn join-item"
 		: "btn join-item btn-disabled"
 
-	const handleNext = (e: any) => {
+	const handleNext = () => {
 		setPage(pageValue + 1)
 		onPageChange(pageValue + 1)
 	}
 
-	const handlePrevious = (e: any) => {
+	const handlePrevious = () => {
 		setPage(pageValue - 1)
 		onPageChange(pageValue - 1)
 	}

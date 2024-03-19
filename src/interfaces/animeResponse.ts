@@ -84,7 +84,7 @@ interface Genre {
 
 interface Theme extends Genre {}
 
-interface Data {
+export interface AnimeData {
 	mal_id: number
 	url: string
 	images: {
@@ -128,5 +128,5 @@ interface Data {
 
 export interface AnimeResponse {
 	pagination: Pagination
-	data: Data[]
+	data: AnimeData[]
 }

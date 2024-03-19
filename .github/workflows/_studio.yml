@@ -1,4 +1,4 @@
-name: Astro Studio
+name: Astro Studio DB Push
 
 env:
  ASTRO_STUDIO_APP_TOKEN: ${{secrets.ASTRO_STUDIO_APP_TOKEN }}

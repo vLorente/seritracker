@@ -64,14 +64,12 @@ describe("Pagination component", () => {
 	})
 
 	it("Disables next button when hasNext is false", () => {
-		const onPageChange = vi.fn()
 		const { nextPageButton } = setup(false, 1, mockOnPageChange)
 
 		expect(nextPageButton).toHaveClass("btn-disabled")
 	})
 
 	it("Disables previous button when its in first page", () => {
-		const onPageChange = vi.fn()
 		const { previousButton } = setup(true, 1, mockOnPageChange)
 
 		expect(previousButton).toHaveClass("btn-disabled")

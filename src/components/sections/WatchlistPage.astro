@@ -2,20 +2,37 @@
 import EmptyResponse from "@components/EmptyResponse.astro"
 import Section from "@components/Section.astro"
 import Card from "@components/ui/Card"
+import type { AnimeData } from "@interfaces/animeResponse"
 import { Watchlist as WatchlistDB, db, eq } from "astro:db"
 
-const watchlist = await db
-	.select()
-	.from(WatchlistDB)
-	.where(eq(WatchlistDB.userId, 1))
+interface WatchingInterface {
+	userId: number
+	malId: number
+	malItem: AnimeData
+}
 
-const emptyText = "🙁 Aún no tienes series en tu lista de pendientes"
+interface LoaderData {
+	watchlistList: WatchingInterface[]
+	emptyText: string
+}
+
+const loader = async (): Promise<LoaderData> => {
+	const emptyText = "🙁 Aún no tienes series en tu lista de pendientes"
+	const watchingList: WatchingInterface[] | null = (await db
+		.select()
+		.from(WatchlistDB)
+		.where(eq(WatchlistDB.userId, 1))) as WatchingInterface[] | null
+
+	return { watchlistList: watchingList, emptyText } as LoaderData
+}
+
+const { watchlistList, emptyText } = await loader()
 ---
 
 <Section>
 	{
-		watchlist.length > 0 ? (
-			watchlist.map(({ malItem }) => (
+		watchlistList.length > 0 ? (
+			watchlistList.map(({ malItem }) => (
 				<Card
 					title={malItem?.title}
 					description={malItem?.synopsis}

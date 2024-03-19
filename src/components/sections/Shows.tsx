@@ -13,7 +13,8 @@ export default function Shows() {
 	const [sort, setSort] = useState<"asc" | "desc">("asc")
 	const [search, setSearch] = useState<string>("")
 	const [page, setPage] = useState<number>(1)
-	const { data, error, loading } = useFetchJikan(orderBy, sort, search, page)
+	// TODO Handle Error
+	const { data, loading } = useFetchJikan(orderBy, sort, search, page)
 
 	const handleOrderBySelectChange = (selectedValue: OrderByEnum) => {
 		setOrderBySel(selectedValue)
