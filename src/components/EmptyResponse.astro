@@ -1,11 +1,18 @@
 ---
 interface Props {
+	title: string
 	text: string
+	className?: string
 }
 
-const { text } = Astro.props
+const { title, text, className } = Astro.props
+
+const combineClass = `card bg-slate-300 dark:bg-neutral dark:text-neutral-content ${className}`
 ---
 
-<div>
-	<h2>{text}</h2>
+<div class:list={combineClass}>
+	<div class="card-body items-center text-center">
+		<h2 class="card-title">{title}</h2>
+		<p>{text}</p>
+	</div>
 </div>

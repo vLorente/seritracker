@@ -13,11 +13,17 @@ interface FinishedInterface {
 
 interface LoaderData {
 	finishedList: FinishedInterface[]
-	emptyText: string
+	emptyText: {
+		title: string
+		text: string
+	}
 }
 
 const loader = async (): Promise<LoaderData> => {
-	const emptyText = "🙁 Aún no tienes series en tu lista de finalizadas"
+	const emptyText = {
+		title: "Ops!",
+		text: "🙁 Aún no tienes series en tu lista de finalizadas",
+	}
 	const finishedList: FinishedInterface[] | null = (await db
 		.select()
 		.from(FinishedDB)
@@ -40,7 +46,9 @@ const { finishedList, emptyText } = await loader()
 				/>
 			))
 		) : (
-			<EmptyResponse text={emptyText} />
+			<div class="flex items-center justify-center">
+				<EmptyResponse title={emptyText.title} text={emptyText.text} />
+			</div>
 		)
 	}
 </Section>

@@ -13,11 +13,17 @@ interface WatchingInterface {
 
 interface LoaderData {
 	watchlistList: WatchingInterface[]
-	emptyText: string
+	emptyText: {
+		title: string
+		text: string
+	}
 }
 
 const loader = async (): Promise<LoaderData> => {
-	const emptyText = "🙁 Aún no tienes series en tu lista de pendientes"
+	const emptyText = {
+		title: "Ops!",
+		text: "🙁 Aún no tienes series en tu lista de pendientes",
+	}
 	const watchingList: WatchingInterface[] | null = (await db
 		.select()
 		.from(WatchlistDB)
@@ -40,7 +46,7 @@ const { watchlistList, emptyText } = await loader()
 				/>
 			))
 		) : (
-			<EmptyResponse text={emptyText} />
+			<EmptyResponse title={emptyText.title} text={emptyText.text} />
 		)
 	}
 </Section>
