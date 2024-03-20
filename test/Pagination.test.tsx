@@ -1,4 +1,4 @@
-import Pagination from "@components/ui/Pagination"
+import Pagination from "@components/Pagination"
 import { fireEvent, render } from "@testing-library/preact"
 import { describe, expect, it, vi } from "vitest"
 

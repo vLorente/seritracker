@@ -1,7 +1,8 @@
 ---
 import EmptyResponse from "@components/EmptyResponse.astro"
+import Grid from "@components/Grid.astro"
+import Row from "@components/Row.astro"
 import Section from "@components/Section.astro"
-import Row from "@components/ui/Row.astro"
 import type { AnimeData } from "@interfaces/animeResponse"
 import { Watching as WatchingDB, db, eq } from "astro:db"
 
@@ -37,17 +38,22 @@ const buttonText = "FINALIZAR"
 ---
 
 <Section title="Viendo">
+	<Grid>
+		{
+			watchingList.length > 0 &&
+				watchingList.map(({ malItem }) => (
+					<Row
+						title={malItem.title}
+						text={malItem.synopsis}
+						image={malItem.images.webp.image_url}
+						buttonText={buttonText}
+					/>
+				))
+		}
+	</Grid>
+
 	{
-		watchingList.length > 0 ? (
-			watchingList.map(({ malItem }) => (
-				<Row
-					title={malItem.title}
-					text={malItem.synopsis}
-					image={malItem.images.webp.image_url}
-					buttonText={buttonText}
-				/>
-			))
-		) : (
+		watchingList.length === 0 && (
 			<EmptyResponse title={emptyText.title} text={emptyText.text} />
 		)
 	}

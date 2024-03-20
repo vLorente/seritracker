@@ -1,4 +1,4 @@
-import SortSwap from "@components/ui/SortSwap"
+import SortSwap from "@components/SortSwap"
 import { fireEvent, render } from "@testing-library/preact"
 import { describe, expect, it, vi } from "vitest"
 

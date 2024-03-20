@@ -1,6 +1,7 @@
 ---
-import Footer from "@components/Footer.astro"
-import Navbar from "@components/Navbar.astro"
+import Footer from "@sections/Footer.astro"
+import Navbar from "@sections/Navbar.astro"
+import ViewTransitions from "astro/components/ViewTransitions.astro"
 
 interface Props {
 	title: string
@@ -25,6 +26,7 @@ const { title, summary } = Astro.props
 		<Navbar />
 		<slot />
 		<Footer />
+		<ViewTransitions />
 		<style is:global>
 			:root {
 				color-scheme: dark;

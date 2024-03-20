@@ -1,11 +1,12 @@
-import Card from "@components/ui/Card"
-import Loading from "@components/ui/Loading"
-import OrderBySelector from "@components/ui/OrderBySelector"
-import Pagination from "@components/ui/Pagination"
-import SearchBar from "@components/ui/SearchBar"
-import SortSwap from "@components/ui/SortSwap"
+import Card from "@components/Card"
+import Loading from "@components/Loading"
+import OrderBySelector from "@components/OrderBySelector"
+import Pagination from "@components/Pagination"
+import SearchBar from "@components/SearchBar"
+import SortSwap from "@components/SortSwap"
 import useFetchJikan from "@hooks/useFetchJikan"
 import { OrderByEnum } from "@interfaces/animeQuery"
+import type { AnimeData } from "@interfaces/animeResponse"
 import { useState } from "preact/hooks"
 
 export default function Shows() {
@@ -56,14 +57,7 @@ export default function Shows() {
 			{/* Shows Grid */}
 			<body>
 				<div className="grid content-start gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-					{data &&
-						data.data.map(({ title, synopsis, images }) => (
-							<Card
-								title={title}
-								description={synopsis}
-								image={images.webp.large_image_url}
-							/>
-						))}
+					{data && data.data.map((item: AnimeData) => <Card show={item} />)}
 				</div>
 				{loading && (
 					<div className="flex h-20 items-center justify-center">

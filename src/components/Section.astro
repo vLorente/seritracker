@@ -8,7 +8,10 @@ const { className, title } = Astro.props
 ---
 
 <section
-	class:list={["max-w-8xl mx-auto px-3 py-5 sm:px-20 sm:py-20", className]}
+	class:list={[
+		"max-w-8xl mx-auto px-3 py-5 sm:px-12 sm:pb-20 sm:pt-10",
+		className,
+	]}
 >
 	{title && <h2 class="pb-4 text-xl">{title}</h2>}
 	<slot />

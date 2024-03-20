@@ -1,4 +1,4 @@
-import SearchBar from "@components/ui/SearchBar"
+import SearchBar from "@components/SearchBar"
 import { fireEvent, render, screen } from "@testing-library/preact"
 import { describe, expect, it, vi } from "vitest"
 
