@@ -1,7 +1,7 @@
 ---
 import EmptyResponse from "@components/EmptyResponse.astro"
 import Section from "@components/Section.astro"
-import Card from "@components/ui/Card"
+import Row from "@components/ui/Row.astro"
 import type { AnimeData } from "@interfaces/animeResponse"
 import { Watchlist as WatchlistDB, db, eq } from "astro:db"
 
@@ -33,16 +33,18 @@ const loader = async (): Promise<LoaderData> => {
 }
 
 const { watchlistList, emptyText } = await loader()
+const buttonText = "VIENDO"
 ---
 
-<Section>
+<Section title="Viendo">
 	{
 		watchlistList.length > 0 ? (
 			watchlistList.map(({ malItem }) => (
-				<Card
-					title={malItem?.title}
-					description={malItem?.synopsis}
-					image={malItem?.images.webp.large_image_url}
+				<Row
+					title={malItem.title}
+					text={malItem.synopsis}
+					image={malItem.images.webp.image_url}
+					buttonText={buttonText}
 				/>
 			))
 		) : (

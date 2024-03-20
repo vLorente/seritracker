@@ -1,7 +1,7 @@
 ---
 import EmptyResponse from "@components/EmptyResponse.astro"
 import Section from "@components/Section.astro"
-import Card from "@components/ui/Card"
+import Row from "@components/ui/Row.astro"
 import type { AnimeData } from "@interfaces/animeResponse"
 import { Finished as FinishedDB, db, eq } from "astro:db"
 
@@ -33,22 +33,23 @@ const loader = async (): Promise<LoaderData> => {
 }
 
 const { finishedList, emptyText } = await loader()
+
+const buttonText = "ELIMINAR"
 ---
 
-<Section>
+<Section title="Viendo">
 	{
 		finishedList.length > 0 ? (
 			finishedList.map(({ malItem }) => (
-				<Card
-					title={malItem?.title}
-					description={malItem?.synopsis}
-					image={malItem?.images.webp.large_image_url}
+				<Row
+					title={malItem.title}
+					text={malItem.synopsis}
+					image={malItem.images.webp.image_url}
+					buttonText={buttonText}
 				/>
 			))
 		) : (
-			<div class="flex items-center justify-center">
-				<EmptyResponse title={emptyText.title} text={emptyText.text} />
-			</div>
+			<EmptyResponse title={emptyText.title} text={emptyText.text} />
 		)
 	}
 </Section>

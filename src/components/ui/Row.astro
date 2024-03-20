@@ -1,0 +1,27 @@
+---
+interface Props {
+	title: string
+	text: string
+	image: string
+	buttonText: string
+}
+
+const { title, text, image, buttonText } = Astro.props
+---
+
+<div class="card card-side bg-gray-200 shadow-xl dark:bg-gray-800">
+	<figure class="w-2/5">
+		<img class="aspect-square" src={image} alt="Show" />
+	</figure>
+	<div class="w-3/5">
+		<div class="h-2/3 pl-3 pt-2">
+			<h2 class="card-title">{title}</h2>
+			<p class="text-clip text-xs">{text}</p>
+		</div>
+		<div class="h-1/3">
+			<button class="btn btn-ghost btn-block bg-transparent text-white">
+				{buttonText}
+			</button>
+		</div>
+	</div>
+</div>
