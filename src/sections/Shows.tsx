@@ -53,7 +53,6 @@ export default function Shows() {
 					</div>
 				</div>
 			</header>
-
 			{/* Shows Grid */}
 			<body>
 				<div className="grid content-start gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
@@ -66,7 +65,6 @@ export default function Shows() {
 					</div>
 				)}
 			</body>
-
 			{/* Pagination */}
 			<footer className="flex items-center justify-center pt-4">
 				{!loading && (

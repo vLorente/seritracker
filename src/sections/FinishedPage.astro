@@ -3,7 +3,6 @@ import EmptyResponse from "@components/EmptyResponse.astro"
 import Row from "@components/Row.astro"
 import Section from "@components/Section.astro"
 import type { AnimeData } from "@interfaces/animeResponse"
-import { Finished as FinishedDB, db, eq } from "astro:db"
 
 interface FinishedInterface {
 	userId: number
@@ -19,20 +18,18 @@ interface LoaderData {
 	}
 }
 
-const loader = async (): Promise<LoaderData> => {
+const loader = (): LoaderData => {
 	const emptyText = {
 		title: "Ops!",
 		text: "🙁 Aún no tienes series en tu lista de finalizadas",
 	}
-	const finishedList: FinishedInterface[] | null = (await db
-		.select()
-		.from(FinishedDB)
-		.where(eq(FinishedDB.userId, 1))) as FinishedInterface[] | null
+	// TODO
 
+	const finishedList: FinishedInterface[] = []
 	return { finishedList, emptyText } as LoaderData
 }
 
-const { finishedList, emptyText } = await loader()
+const { finishedList, emptyText } = loader()
 
 const buttonText = "ELIMINAR"
 ---

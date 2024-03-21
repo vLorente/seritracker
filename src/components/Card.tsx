@@ -11,29 +11,12 @@ export default function Card({ show }: Props) {
 
 	const handleWatching = async () => {
 		console.log("Handle Watching")
-		// const check = await db
-		// 	.select()
-		// 	.from(WatchlistDB)
-		// 	.where(eq(WatchlistDB.malId, show.mal_id))
-		// if (check) {
-		// 	db.delete(WatchlistDB).where(eq(WatchlistDB.malId, show.mal_id))
-		// }
-		// await db.insert(WatchingDB).values({
-		// 	userId: 1, // TODO Login user
-		// 	malId: show.mal_id,
-		// 	malItem: show,
-		// })
 		setInWatching(true)
 		setInWatchlist(false)
 	}
 
 	const handleWatchlist = async () => {
 		console.log("Handle Watchlist")
-		// await db.insert(WatchlistDB).values({
-		// 	userId: 1, // TODO Login user
-		// 	malId: show.mal_id,
-		// 	malItem: show,
-		// })
 		setInWatching(false)
 		setInWatchlist(true)
 	}

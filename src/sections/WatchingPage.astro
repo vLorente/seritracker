@@ -4,7 +4,6 @@ import Grid from "@components/Grid.astro"
 import Row from "@components/Row.astro"
 import Section from "@components/Section.astro"
 import type { AnimeData } from "@interfaces/animeResponse"
-import { Watching as WatchingDB, db, eq } from "astro:db"
 
 interface WatchingInterface {
 	userId: number
@@ -20,20 +19,19 @@ interface LoaderData {
 	}
 }
 
-const loader = async (): Promise<LoaderData> => {
+const loader = (): LoaderData => {
 	const emptyText = {
 		title: "Ops!",
 		text: "🙁 Aún no tienes series en tu lista de seguimiento",
 	}
-	const watchingList: WatchingInterface[] | null = (await db
-		.select()
-		.from(WatchingDB)
-		.where(eq(WatchingDB.userId, 1))) as WatchingInterface[] | null
 
+	// TODO
+
+	const watchingList: WatchingInterface[] = []
 	return { watchingList, emptyText } as LoaderData
 }
 
-const { watchingList, emptyText } = await loader()
+const { watchingList, emptyText } = loader()
 const buttonText = "FINALIZAR"
 ---
 

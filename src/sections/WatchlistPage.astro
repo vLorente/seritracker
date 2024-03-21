@@ -2,37 +2,36 @@
 import EmptyResponse from "@components/EmptyResponse.astro"
 import Row from "@components/Row.astro"
 import Section from "@components/Section.astro"
-import type { AnimeData } from "@interfaces/animeResponse"
-import { Watchlist as WatchlistDB, db, eq } from "astro:db"
 
-interface WatchingInterface {
+import type { AnimeData } from "@interfaces/animeResponse"
+
+interface WatchlistInterface {
 	userId: number
 	malId: number
 	malItem: AnimeData
 }
 
 interface LoaderData {
-	watchlistList: WatchingInterface[]
+	watchlistList: WatchlistInterface[]
 	emptyText: {
 		title: string
 		text: string
 	}
 }
-
-const loader = async (): Promise<LoaderData> => {
+const loader = (): LoaderData => {
 	const emptyText = {
 		title: "Ops!",
 		text: "🙁 Aún no tienes series en tu lista de pendientes",
 	}
-	const watchingList: WatchingInterface[] | null = (await db
-		.select()
-		.from(WatchlistDB)
-		.where(eq(WatchlistDB.userId, 1))) as WatchingInterface[] | null
 
-	return { watchlistList: watchingList, emptyText } as LoaderData
+	//TODO
+
+	const watchlistList: WatchlistInterface[] = []
+
+	return { watchlistList, emptyText }
 }
 
-const { watchlistList, emptyText } = await loader()
+const { watchlistList, emptyText } = loader()
 const buttonText = "VIENDO"
 ---
 
@@ -52,3 +51,5 @@ const buttonText = "VIENDO"
 		)
 	}
 </Section>
+
+<script></script>

@@ -4,8 +4,8 @@
  "version": "0.0.1",
  "scripts": {
   "dev": "astro dev",
-  "start": "astro dev --remote",
-  "build": "astro check && astro build --remote",
+  "start": "astro dev",
+  "build": "astro check && astro build",
   "preview": "astro preview",
   "astro": "astro",
   "check": "astro check $$ tsc --noEmit",
@@ -20,7 +20,6 @@
  },
  "dependencies": {
   "@astrojs/check": "0.5.9",
-  "@astrojs/db": "0.8.8",
   "@astrojs/preact": "3.1.1",
   "@astrojs/vercel": "7.3.6",
   "@vercel/analytics": "1.2.2",
