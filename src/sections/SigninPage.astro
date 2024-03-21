@@ -1,0 +1,37 @@
+---
+import Section from "@components/Section.astro"
+import GitHub from "@icons/GitHub.astro"
+import Google from "@icons/Google.astro"
+
+const title = "Sign in"
+---
+
+<Section
+	title="Acceso"
+	className="flex flex-1 flex-col items-center justify-center gap-4 p-4"
+>
+	<form
+		method="post"
+		action="/api/auth/signin"
+		class="grid w-full grid-cols-1 gap-3"
+	>
+		<button
+			value="github"
+			name="provider"
+			class="mb-2 me-2 inline-flex items-center rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
+			type="submit"
+		>
+			<GitHub />
+			Sign in with Github
+		</button>
+		<button
+			value="google"
+			name="provider"
+			type="submit"
+			class="mb-2 me-2 inline-flex items-center rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
+		>
+			<Google />
+			Sign in with Google
+		</button>
+	</form>
+</Section>

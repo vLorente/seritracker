@@ -1,4 +1,5 @@
 ---
+import LoginButton from "@components/LoginButton.astro"
 import ThemeController from "@components/ThemeController"
 
 interface NavItem {
@@ -124,7 +125,8 @@ const menuItems: NavItem[] = [
 		</ul>
 	</div>
 
-	<div class="navbar-end">
+	<div class="navbar-end gap-2">
+		<LoginButton />
 		<ThemeController client:only />
 	</div>
 </div>
