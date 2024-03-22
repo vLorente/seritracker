@@ -27,3 +27,4 @@ pnpm-debug.log*
 # Astro DB
 seritracker-client@0.0.1
 astro
+.env*.local
