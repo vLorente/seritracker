@@ -29,6 +29,7 @@ export default function ThemeController() {
 				type="checkbox"
 				className="theme-controller hidden"
 				value="synthwave"
+				checked={theme === "light"}
 			/>
 
 			{/* sun icon */}
