@@ -1,1 +1,24 @@
-<a href="/signin" class="btn btn-neutral"> Login </a>
+---
+const { cookies } = Astro
+
+const accessToken = cookies.get("sb-access-token")
+const refreshToken = cookies.get("sb-refresh-token")
+
+const logged = accessToken && refreshToken
+---
+
+<>
+	{
+		!logged ? (
+			<a href="/signin" class="btn btn-neutral">
+				Login
+			</a>
+		) : (
+			<form action="/api/auth/signout" method="get">
+				<button type="submit" class="btn btn-neutral">
+					Logout
+				</button>
+			</form>
+		)
+	}
+</>

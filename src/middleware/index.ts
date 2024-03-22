@@ -1,12 +1,12 @@
 import { supabase } from "@supabase/supabase"
-import { defineMiddleware } from "astro:middleware"
+import { defineMiddleware, sequence } from "astro:middleware"
 import micromatch from "micromatch"
 
 const protectedRoutes = ["/watchlist(|/)"]
 const redirectRoutes = ["/signin(|/)"]
 // const proptectedAPIRoutes = ["/api/profile(|/)"]
 
-export const onRequest = defineMiddleware(
+const auth = defineMiddleware(
 	async ({ locals, url, cookies, redirect }, next) => {
 		if (micromatch.isMatch(url.pathname, protectedRoutes)) {
 			const accessToken = cookies.get("sb-access-token")
@@ -48,7 +48,7 @@ export const onRequest = defineMiddleware(
 			const refreshToken = cookies.get("sb-refresh-token")
 
 			if (accessToken && refreshToken) {
-				return redirect("/watching")
+				return redirect("/dashboard")
 			}
 		}
 
@@ -85,3 +85,33 @@ export const onRequest = defineMiddleware(
 		return next()
 	}
 )
+
+const corsMiddleware = defineMiddleware(async ({ request }, next) => {
+	if (request.method === "OPTIONS") {
+		let headers = new Headers()
+		headers.append("Access-Control-Allow-Origin", "*")
+		headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+		headers.append(
+			"Access-Control-Allow-Headers",
+			"Origin, X-Requested-With, Content-Type, Accept"
+		)
+		return new Response(null, { headers })
+	}
+
+	const response = await next()
+
+	const headers = new Headers(response.headers)
+	headers.append("Access-Control-Allow-Origin", "*")
+	headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+	headers.append(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	)
+
+	return new Response(response.body, {
+		...response,
+		headers: headers,
+	})
+})
+
+export const onRequest = sequence(auth)
