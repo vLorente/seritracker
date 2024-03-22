@@ -1,0 +1,16 @@
+---
+interface Props {
+	className?: string
+	avatarUrl: string
+}
+
+const { className, avatarUrl } = Astro.props
+---
+
+<div class:list={["avatar", className]}>
+	<div
+		class="w-10 rounded-full ring ring-lime-600 ring-offset-2 ring-offset-base-100"
+	>
+		<img src={avatarUrl} alt="annon_profile.webp" />
+	</div>
+</div>

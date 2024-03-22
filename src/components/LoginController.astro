@@ -1,0 +1,37 @@
+---
+import Avatar from "@components/Avatar.astro"
+const { cookies } = Astro
+
+const accessToken = cookies.get("sb-access-token")
+const refreshToken = cookies.get("sb-refresh-token")
+
+const logged = accessToken && refreshToken
+---
+
+<>
+	{
+		!logged ? (
+			<>
+				<a href="/signin" class="btn btn-neutral">
+					Login
+				</a>
+			</>
+		) : (
+			<div class="dropdown dropdown-end">
+				<div tabindex="0" role="button" class="m-1">
+					<Avatar avatarUrl="" />
+				</div>
+				<ul class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow">
+					<li>
+						<a href="/profile">Perfil</a>
+					</li>
+					<li>
+						<form action="/api/auth/signout" method="get">
+							<button type="submit">Cerrar sesión</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+		)
+	}
+</>

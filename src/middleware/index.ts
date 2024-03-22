@@ -2,7 +2,7 @@ import { supabase } from "@supabase/supabase"
 import { defineMiddleware, sequence } from "astro:middleware"
 import micromatch from "micromatch"
 
-const protectedRoutes = ["/watchlist(|/)"]
+const protectedRoutes = ["/watchlist(|/)", "/watching(|/)", "/finished(|/)"]
 const redirectRoutes = ["/signin(|/)"]
 // const proptectedAPIRoutes = ["/api/profile(|/)"]
 
@@ -86,32 +86,32 @@ const auth = defineMiddleware(
 	}
 )
 
-const corsMiddleware = defineMiddleware(async ({ request }, next) => {
-	if (request.method === "OPTIONS") {
-		let headers = new Headers()
-		headers.append("Access-Control-Allow-Origin", "*")
-		headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-		headers.append(
-			"Access-Control-Allow-Headers",
-			"Origin, X-Requested-With, Content-Type, Accept"
-		)
-		return new Response(null, { headers })
-	}
+// const corsMiddleware = defineMiddleware(async ({ request }, next) => {
+// 	if (request.method === "OPTIONS") {
+// 		let headers = new Headers()
+// 		headers.append("Access-Control-Allow-Origin", "*")
+// 		headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+// 		headers.append(
+// 			"Access-Control-Allow-Headers",
+// 			"Origin, X-Requested-With, Content-Type, Accept"
+// 		)
+// 		return new Response(null, { headers })
+// 	}
 
-	const response = await next()
+// 	const response = await next()
 
-	const headers = new Headers(response.headers)
-	headers.append("Access-Control-Allow-Origin", "*")
-	headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-	headers.append(
-		"Access-Control-Allow-Headers",
-		"Origin, X-Requested-With, Content-Type, Accept"
-	)
+// 	const headers = new Headers(response.headers)
+// 	headers.append("Access-Control-Allow-Origin", "*")
+// 	headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+// 	headers.append(
+// 		"Access-Control-Allow-Headers",
+// 		"Origin, X-Requested-With, Content-Type, Accept"
+// 	)
 
-	return new Response(response.body, {
-		...response,
-		headers: headers,
-	})
-})
+// 	return new Response(response.body, {
+// 		...response,
+// 		headers: headers,
+// 	})
+// })
 
 export const onRequest = sequence(auth)

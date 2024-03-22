@@ -1,6 +1,7 @@
 ---
 import Footer from "@sections/Footer.astro"
 import Navbar from "@sections/Navbar.astro"
+import { ViewTransitions } from "astro:transitions"
 
 interface Props {
 	title: string
@@ -11,7 +12,7 @@ const { title, summary } = Astro.props
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth" data-theme="dark">
+<html lang="es" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<title>{title}</title>
@@ -24,7 +25,7 @@ const { title, summary } = Astro.props
 		<Navbar />
 		<slot />
 		<Footer />
-		<!-- <ViewTransitions /> -->
+		<ViewTransitions />
 		<style is:global>
 			:root {
 				color-scheme: dark;
