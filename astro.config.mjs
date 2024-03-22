@@ -7,7 +7,7 @@ import { defineConfig } from "astro/config"
 export default defineConfig({
 	site: "https://seritracker.vlorente.dev",
 	integrations: [preact(), tailwind()],
-	output: "hybrid",
+	output: "server",
 	adapter: vercel({
 		webAnalytics: {
 			enabled: true
