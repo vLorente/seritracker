@@ -21,7 +21,6 @@ const loader = async (): Promise<LoaderData> => {
 		text: "🙁 Aún no tienes series en tu lista de seguimiento",
 	}
 
-	// TODO
 	const userId = Astro.cookies.get(COOKIES.USERID)?.value
 	const { data: watching, error } = await supabase
 		.from("watching")

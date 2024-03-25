@@ -2,47 +2,53 @@
 import EmptyResponse from "@components/EmptyResponse.astro"
 import Row from "@components/Row.astro"
 import Section from "@components/Section.astro"
+import { COOKIES } from "@consts/cookies"
 
 import type { AnimeData } from "@interfaces/animeResponse"
-
-interface WatchlistInterface {
-	userId: number
-	malId: number
-	malItem: AnimeData
-}
+import { supabase } from "@supabase/supabase"
 
 interface LoaderData {
-	watchlistList: WatchlistInterface[]
+	watchlistList: AnimeData[]
 	emptyText: {
 		title: string
 		text: string
 	}
 }
-const loader = (): LoaderData => {
+const loader = async (): Promise<LoaderData> => {
 	const emptyText = {
 		title: "Ops!",
 		text: "🙁 Aún no tienes series en tu lista de pendientes",
 	}
 
-	//TODO
+	const userId = Astro.cookies.get(COOKIES.USERID)?.value
+	const { data: watchlist, error } = await supabase
+		.from("watching")
+		.select("show")
+		.eq("user_id", userId)
 
-	const watchlistList: WatchlistInterface[] = []
+	if (error) {
+		// TODO Handle Error
+		console.log("ERROR", error)
+	}
+
+	const watchlistList: AnimeData[] = watchlist?.map((item) => item.show) || []
+	return { watchlistList, emptyText } as LoaderData
 
 	return { watchlistList, emptyText }
 }
 
-const { watchlistList, emptyText } = loader()
+const { watchlistList, emptyText } = await loader()
 const buttonText = "VIENDO"
 ---
 
 <Section title="Pendientes">
 	{
 		watchlistList.length > 0 ? (
-			watchlistList.map(({ malItem }) => (
+			watchlistList.map((show) => (
 				<Row
-					title={malItem.title}
-					text={malItem.synopsis}
-					image={malItem.images.webp.image_url}
+					title={show.title}
+					text={show.synopsis}
+					image={show.images.webp.image_url}
 					buttonText={buttonText}
 				/>
 			))
@@ -51,5 +57,3 @@ const buttonText = "VIENDO"
 		)
 	}
 </Section>
-
-<script></script>
