@@ -10,13 +10,39 @@ export default function Card({ show }: Props) {
 	const [inWatchlist, setInWatchlist] = useState(false)
 
 	const handleWatching = async () => {
-		console.log("Handle Watching")
+		const requestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				show: show,
+			}),
+		}
+
+		const url: string = import.meta.env.DEV
+			? "http://localhost:4321/api/show/watching"
+			: "https://seritracker.vlorente.dev/api/show/watching"
+
+		const response = await fetch(url, requestOptions)
+
 		setInWatching(true)
 		setInWatchlist(false)
 	}
 
 	const handleWatchlist = async () => {
-		console.log("Handle Watchlist")
+		const requestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				show: show,
+			}),
+		}
+
+		const url: string = import.meta.env.DEV
+			? "http://localhost:4321/api/show/watchlist"
+			: "https://seritracker.vlorente.dev/api/show/watchlist"
+
+		const response = await fetch(url, requestOptions)
+
 		setInWatching(false)
 		setInWatchlist(true)
 	}
