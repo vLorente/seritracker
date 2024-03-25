@@ -65,7 +65,7 @@ export default function Card({ show }: Props) {
 						src={show.trailer.embed_url}
 						title="YouTube video player"
 						frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+						allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
 						referrerpolicy="strict-origin-when-cross-origin"
 					></iframe>
 				</div>
