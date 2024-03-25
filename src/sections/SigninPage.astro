@@ -1,0 +1,54 @@
+---
+import Section from "@components/Section.astro"
+import GitHub from "@icons/GitHub.astro"
+import Google from "@icons/Google.astro"
+import Naruto from "@icons/Naruto.astro"
+
+const title = "Sign in"
+---
+
+<Section>
+	<div class="mx-auto flex flex-col items-center px-6 py-8 md:h-screen lg:py-0">
+		<a
+			href="/"
+			class="mb-6 flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
+		>
+			<Naruto className="h-32 w-32" />
+		</a>
+		<div
+			class="w-full rounded-lg border border-lime-100 bg-gray-200 shadow sm:max-w-md md:mt-0 xl:p-0 dark:border dark:border-gray-700 dark:bg-gray-800"
+		>
+			<div class="space-y-4 p-6 sm:p-8 md:space-y-6">
+				<h1
+					class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+				>
+					Accede con tu cuenta
+				</h1>
+				<form
+					class="space-y-4 md:space-y-6"
+					action="/api/auth/signin"
+					method="post"
+				>
+					<button
+						value="github"
+						name="provider"
+						class="mb-2 me-2 inline-flex w-full items-center rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
+						type="submit"
+					>
+						<GitHub />
+						Iniciar sesión con Github
+					</button>
+					<button
+						value="google"
+						name="provider"
+						type="submit"
+						class="mb-2 me-2 inline-flex w-full items-center rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
+					>
+						<Google />
+						Iniciar sesión con Google
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</Section>

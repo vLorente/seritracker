@@ -3,35 +3,40 @@ import EmptyResponse from "@components/EmptyResponse.astro"
 import Grid from "@components/Grid.astro"
 import Row from "@components/Row.astro"
 import Section from "@components/Section.astro"
+import { COOKIES } from "@consts/cookies"
 import type { AnimeData } from "@interfaces/animeResponse"
-
-interface WatchingInterface {
-	userId: number
-	malId: number
-	malItem: AnimeData
-}
+import { supabase } from "@supabase/supabase"
 
 interface LoaderData {
-	watchingList: WatchingInterface[]
+	watchingList: AnimeData[]
 	emptyText: {
 		title: string
 		text: string
 	}
 }
 
-const loader = (): LoaderData => {
+const loader = async (): Promise<LoaderData> => {
 	const emptyText = {
 		title: "Ops!",
 		text: "🙁 Aún no tienes series en tu lista de seguimiento",
 	}
 
-	// TODO
+	const userId = Astro.cookies.get(COOKIES.USERID)?.value
+	const { data: watching, error } = await supabase
+		.from("watching")
+		.select("show")
+		.eq("user_id", userId)
 
-	const watchingList: WatchingInterface[] = []
+	if (error) {
+		// TODO Handle Error
+		console.log("ERROR", error)
+	}
+
+	const watchingList: AnimeData[] = watching?.map((item) => item.show) || []
 	return { watchingList, emptyText } as LoaderData
 }
 
-const { watchingList, emptyText } = loader()
+const { watchingList, emptyText } = await loader()
 const buttonText = "FINALIZAR"
 ---
 
@@ -39,11 +44,11 @@ const buttonText = "FINALIZAR"
 	<Grid>
 		{
 			watchingList.length > 0 &&
-				watchingList.map(({ malItem }) => (
+				watchingList.map((show) => (
 					<Row
-						title={malItem.title}
-						text={malItem.synopsis}
-						image={malItem.images.webp.image_url}
+						title={show.title}
+						text=""
+						image={show.images.webp.image_url}
 						buttonText={buttonText}
 					/>
 				))

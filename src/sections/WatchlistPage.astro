@@ -1,55 +1,60 @@
 ---
 import EmptyResponse from "@components/EmptyResponse.astro"
+import Grid from "@components/Grid.astro"
 import Row from "@components/Row.astro"
 import Section from "@components/Section.astro"
+import { COOKIES } from "@consts/cookies"
 
 import type { AnimeData } from "@interfaces/animeResponse"
-
-interface WatchlistInterface {
-	userId: number
-	malId: number
-	malItem: AnimeData
-}
+import { supabase } from "@supabase/supabase"
 
 interface LoaderData {
-	watchlistList: WatchlistInterface[]
+	watchlistList: AnimeData[]
 	emptyText: {
 		title: string
 		text: string
 	}
 }
-const loader = (): LoaderData => {
+const loader = async (): Promise<LoaderData> => {
 	const emptyText = {
 		title: "Ops!",
 		text: "🙁 Aún no tienes series en tu lista de pendientes",
 	}
 
-	//TODO
+	const userId = Astro.cookies.get(COOKIES.USERID)?.value
+	const { data: watchlist, error } = await supabase
+		.from("watchlist")
+		.select("show")
+		.eq("user_id", userId)
 
-	const watchlistList: WatchlistInterface[] = []
+	if (error) {
+		// TODO Handle Error
+		console.log("ERROR", error)
+	}
 
-	return { watchlistList, emptyText }
+	const watchlistList: AnimeData[] = watchlist?.map((item) => item.show) || []
+	return { watchlistList, emptyText } as LoaderData
 }
 
-const { watchlistList, emptyText } = loader()
+const { watchlistList, emptyText } = await loader()
 const buttonText = "VIENDO"
 ---
 
-<Section title="Viendo">
-	{
-		watchlistList.length > 0 ? (
-			watchlistList.map(({ malItem }) => (
-				<Row
-					title={malItem.title}
-					text={malItem.synopsis}
-					image={malItem.images.webp.image_url}
-					buttonText={buttonText}
-				/>
-			))
-		) : (
-			<EmptyResponse title={emptyText.title} text={emptyText.text} />
-		)
-	}
+<Section title="Pendientes">
+	<Grid>
+		{
+			watchlistList.length > 0 ? (
+				watchlistList.map((show) => (
+					<Row
+						title={show.title}
+						text=""
+						image={show.images.webp.image_url}
+						buttonText={buttonText}
+					/>
+				))
+			) : (
+				<EmptyResponse title={emptyText.title} text={emptyText.text} />
+			)
+		}
+	</Grid>
 </Section>
-
-<script></script>
