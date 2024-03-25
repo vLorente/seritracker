@@ -22,7 +22,7 @@ const loader = async (): Promise<LoaderData> => {
 
 	const userId = Astro.cookies.get(COOKIES.USERID)?.value
 	const { data: watchlist, error } = await supabase
-		.from("watching")
+		.from("watchlist")
 		.select("show")
 		.eq("user_id", userId)
 
@@ -33,8 +33,6 @@ const loader = async (): Promise<LoaderData> => {
 
 	const watchlistList: AnimeData[] = watchlist?.map((item) => item.show) || []
 	return { watchlistList, emptyText } as LoaderData
-
-	return { watchlistList, emptyText }
 }
 
 const { watchlistList, emptyText } = await loader()

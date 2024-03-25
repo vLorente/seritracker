@@ -2,34 +2,40 @@
 import EmptyResponse from "@components/EmptyResponse.astro"
 import Row from "@components/Row.astro"
 import Section from "@components/Section.astro"
+import { COOKIES } from "@consts/cookies"
 import type { AnimeData } from "@interfaces/animeResponse"
-
-interface FinishedInterface {
-	userId: number
-	malId: number
-	malItem: AnimeData
-}
+import { supabase } from "@supabase/supabase"
 
 interface LoaderData {
-	finishedList: FinishedInterface[]
+	finishedList: AnimeData[]
 	emptyText: {
 		title: string
 		text: string
 	}
 }
 
-const loader = (): LoaderData => {
+const loader = async (): Promise<LoaderData> => {
 	const emptyText = {
 		title: "Ops!",
 		text: "🙁 Aún no tienes series en tu lista de finalizadas",
 	}
-	// TODO
 
-	const finishedList: FinishedInterface[] = []
-	return { finishedList, emptyText } as LoaderData
+	const userId = Astro.cookies.get(COOKIES.USERID)?.value
+	const { data: watchlist, error } = await supabase
+		.from("finished")
+		.select("show")
+		.eq("user_id", userId)
+
+	if (error) {
+		// TODO Handle Error
+		console.log("ERROR", error)
+	}
+
+	const finishedList: AnimeData[] = watchlist?.map((item) => item.show) || []
+	return { finishedList: finishedList, emptyText } as LoaderData
 }
 
-const { finishedList, emptyText } = loader()
+const { finishedList, emptyText } = await loader()
 
 const buttonText = "ELIMINAR"
 ---
@@ -37,11 +43,11 @@ const buttonText = "ELIMINAR"
 <Section title="Finalizadas">
 	{
 		finishedList.length > 0 ? (
-			finishedList.map(({ malItem }) => (
+			finishedList.map((show) => (
 				<Row
-					title={malItem.title}
-					text={malItem.synopsis}
-					image={malItem.images.webp.image_url}
+					title={show.title}
+					text={show.synopsis}
+					image={show.images.webp.image_url}
 					buttonText={buttonText}
 				/>
 			))
