@@ -1,5 +1,6 @@
 ---
 import EmptyResponse from "@components/EmptyResponse.astro"
+import Grid from "@components/Grid.astro"
 import Row from "@components/Row.astro"
 import Section from "@components/Section.astro"
 import { COOKIES } from "@consts/cookies"
@@ -41,18 +42,20 @@ const buttonText = "ELIMINAR"
 ---
 
 <Section title="Finalizadas">
-	{
-		finishedList.length > 0 ? (
-			finishedList.map((show) => (
-				<Row
-					title={show.title}
-					text={show.synopsis}
-					image={show.images.webp.image_url}
-					buttonText={buttonText}
-				/>
-			))
-		) : (
-			<EmptyResponse title={emptyText.title} text={emptyText.text} />
-		)
-	}
+	<Grid>
+		{
+			finishedList.length > 0 ? (
+				finishedList.map((show) => (
+					<Row
+						title={show.title}
+						text=""
+						image={show.images.webp.image_url}
+						buttonText={buttonText}
+					/>
+				))
+			) : (
+				<EmptyResponse title={emptyText.title} text={emptyText.text} />
+			)
+		}
+	</Grid>
 </Section>
