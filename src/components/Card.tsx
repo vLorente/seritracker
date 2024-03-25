@@ -48,18 +48,30 @@ export default function Card({ show }: Props) {
 	}
 
 	return (
-		<article className="group card bg-gray-200 transition-all duration-300 hover:scale-105 hover:contrast-[105%] lg:w-full 2xl:h-full dark:bg-gray-900">
-			<div className="card overflow-hidden text-clip">
+		// <Toast typeAlert="success" message="Correcto" className="invisible"></Toast>
+
+		<article className="group card h-full w-full bg-gray-200 transition-all hover:scale-105 dark:bg-gray-900">
+			<div className="card h-full overflow-hidden">
 				<figure className="group-hover:brightness-[20%]">
 					<img
-						className="w-full"
+						className="w-full object-cover group-hover:hidden"
 						src={show.images.webp.image_url}
 						alt={show.title}
 					/>
 				</figure>
-				<p className="invisible absolute bottom-0 left-0 right-0 px-3 text-white group-hover:visible group-hover:animate-fade-in-down">
+				<div className="invisible h-0 w-0 group-hover:visible group-hover:h-full group-hover:w-auto">
+					<iframe
+						className="aspect-square h-full w-full object-cover"
+						src={show.trailer.embed_url}
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+						referrerpolicy="strict-origin-when-cross-origin"
+					></iframe>
+				</div>
+				{/* <p className="invisible absolute bottom-0 left-0 right-0 px-3 text-white group-hover:visible group-hover:animate-fade-in-down">
 					{show.synopsis}
-				</p>
+				</p> */}
 			</div>
 			<div className="card-body justify-end">
 				<h2 className="card-title">{show.title}</h2>

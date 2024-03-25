@@ -1,0 +1,26 @@
+---
+import Error from "@icons/Error.astro"
+import Info from "@icons/Info.astro"
+import Success from "@icons/Success.astro"
+import Warning from "@icons/Warning.astro"
+
+interface Props {
+	typeAlert: "info" | "success" | "warning" | "error"
+	message: string
+	className?: string
+}
+
+const { typeAlert, message, className } = Astro.props
+
+const composeType = `alert-${typeAlert}`
+---
+
+<div class:list={["toast toast-start toast-middle", className]}>
+	<div role="alert" class:list={["alert", composeType]}>
+		{typeAlert === "info" && <Info />}
+		{typeAlert === "error" && <Error />}
+		{typeAlert === "success" && <Success />}
+		{typeAlert === "warning" && <Warning />}
+		<span>{message}</span>
+	</div>
+</div>
