@@ -10,7 +10,7 @@ const protectedRoutes = [
 	"/profile(|/)",
 ]
 const redirectRoutes = ["/signin(|/)"]
-// const proptectedAPIRoutes = ["/api/profile(|/)"]
+const proptectedAPIRoutes = ["/api/show(|/)"]
 
 export const onRequest = defineMiddleware(
 	async ({ locals, url, cookies, redirect }, next) => {
@@ -58,35 +58,35 @@ export const onRequest = defineMiddleware(
 			}
 		}
 
-		// if (micromatch.isMatch(url.pathname, proptectedAPIRoutes)) {
-		// 	const accessToken = cookies.get("sb-access-token")
-		// 	const refreshToken = cookies.get(COOKIES.SB_REFRESH_TOKEN)
+		if (micromatch.isMatch(url.pathname, proptectedAPIRoutes)) {
+			const accessToken = cookies.get(COOKIES.SB_ACCESS_TOKEN)
+			const refreshToken = cookies.get(COOKIES.SB_REFRESH_TOKEN)
 
-		// 	// Check for tokens
-		// 	if (!accessToken || !refreshToken) {
-		// 		return new Response(
-		// 			JSON.stringify({
-		// 				error: "Unauthorized",
-		// 			}),
-		// 			{ status: 401 }
-		// 		)
-		// 	}
+			// Check for tokens
+			if (!accessToken || !refreshToken) {
+				return new Response(
+					JSON.stringify({
+						error: "Unauthorized",
+					}),
+					{ status: 401 }
+				)
+			}
 
-		// 	// Verify the tokens
-		// 	const { error } = await supabase.auth.setSession({
-		// 		access_token: accessToken.value,
-		// 		refresh_token: refreshToken.value,
-		// 	})
+			// Verify the tokens
+			const { error } = await supabase.auth.setSession({
+				access_token: accessToken.value,
+				refresh_token: refreshToken.value,
+			})
 
-		// 	if (error) {
-		// 		return new Response(
-		// 			JSON.stringify({
-		// 				error: "Unauthorized",
-		// 			}),
-		// 			{ status: 401 }
-		// 		)
-		// 	}
-		// }
+			if (error) {
+				return new Response(
+					JSON.stringify({
+						error: "Unauthorized",
+					}),
+					{ status: 401 }
+				)
+			}
+		}
 
 		return next()
 	}
