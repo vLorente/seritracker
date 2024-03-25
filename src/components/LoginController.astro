@@ -1,11 +1,15 @@
 ---
 import Avatar from "@components/Avatar.astro"
-const { cookies } = Astro
+import { COOKIES } from "@consts/cookies"
+import type { UserSession } from "@interfaces/session"
 
-const accessToken = cookies.get("sb-access-token")
-const refreshToken = cookies.get("sb-refresh-token")
+const { cookies } = Astro
+const accessToken = cookies.get(COOKIES.SB_ACCESS_TOKEN)
+const refreshToken = cookies.get(COOKIES.SB_REFRESH_TOKEN)
 
 const logged = accessToken && refreshToken
+
+const user: UserSession = cookies.get(COOKIES.USER)?.json()
 ---
 
 <>
@@ -19,7 +23,7 @@ const logged = accessToken && refreshToken
 		) : (
 			<div class="dropdown dropdown-end">
 				<div tabindex="0" role="button" class="m-1">
-					<Avatar avatarUrl="" />
+					<Avatar avatarUrl={user.user_metadata.avatar_url} />
 				</div>
 				<ul class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow">
 					<li>

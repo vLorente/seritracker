@@ -1,7 +1,8 @@
+import { COOKIES } from "@consts/cookies"
 import { supabase } from "@supabase/supabase"
 import type { APIRoute } from "astro"
 
-export const GET: APIRoute = async ({ url, cookies, redirect }) => {
+export const GET: APIRoute = async ({ locals, url, cookies, redirect }) => {
 	const authCode = url.searchParams.get("code")
 
 	if (!authCode) {
@@ -16,10 +17,16 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
 
 	const { access_token, refresh_token } = data.session
 
-	cookies.set("sb-access-token", access_token, {
+	cookies.set(COOKIES.USER, data.user, {
 		path: "/",
 	})
-	cookies.set("sb-refresh-token", refresh_token, {
+	cookies.set(COOKIES.USERID, data.user.id, {
+		path: "/",
+	})
+	cookies.set(COOKIES.SB_ACCESS_TOKEN, access_token, {
+		path: "/",
+	})
+	cookies.set(COOKIES.SB_REFRESH_TOKEN, refresh_token, {
 		path: "/",
 	})
 

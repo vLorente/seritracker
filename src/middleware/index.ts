@@ -1,16 +1,22 @@
+import { COOKIES } from "@consts/cookies.ts"
 import { supabase } from "@supabase/supabase"
-import { defineMiddleware, sequence } from "astro:middleware"
+import { defineMiddleware } from "astro:middleware"
 import micromatch from "micromatch"
 
-const protectedRoutes = ["/watchlist(|/)", "/watching(|/)", "/finished(|/)"]
+const protectedRoutes = [
+	"/watchlist(|/)",
+	"/watching(|/)",
+	"/finished(|/)",
+	"/profile(|/)",
+]
 const redirectRoutes = ["/signin(|/)"]
 // const proptectedAPIRoutes = ["/api/profile(|/)"]
 
-const auth = defineMiddleware(
+export const onRequest = defineMiddleware(
 	async ({ locals, url, cookies, redirect }, next) => {
 		if (micromatch.isMatch(url.pathname, protectedRoutes)) {
-			const accessToken = cookies.get("sb-access-token")
-			const refreshToken = cookies.get("sb-refresh-token")
+			const accessToken = cookies.get(COOKIES.SB_ACCESS_TOKEN)
+			const refreshToken = cookies.get(COOKIES.SB_REFRESH_TOKEN)
 
 			if (!accessToken || !refreshToken) {
 				return redirect("/signin")
@@ -22,21 +28,21 @@ const auth = defineMiddleware(
 			})
 
 			if (error) {
-				cookies.delete("sb-access-token", {
+				cookies.delete(COOKIES.SB_ACCESS_TOKEN, {
 					path: "/",
 				})
-				cookies.delete("sb-refresh-token", {
+				cookies.delete(COOKIES.SB_REFRESH_TOKEN, {
 					path: "/",
 				})
 				return redirect("/signin")
 			}
 
-			cookies.set("sb-access-token", data?.session?.access_token!, {
+			cookies.set(COOKIES.SB_ACCESS_TOKEN, data?.session?.access_token!, {
 				sameSite: "strict",
 				path: "/",
 				secure: true,
 			})
-			cookies.set("sb-refresh-token", data?.session?.refresh_token!, {
+			cookies.set(COOKIES.SB_REFRESH_TOKEN, data?.session?.refresh_token!, {
 				sameSite: "strict",
 				path: "/",
 				secure: true,
@@ -44,17 +50,17 @@ const auth = defineMiddleware(
 		}
 
 		if (micromatch.isMatch(url.pathname, redirectRoutes)) {
-			const accessToken = cookies.get("sb-access-token")
-			const refreshToken = cookies.get("sb-refresh-token")
+			const accessToken = cookies.get(COOKIES.SB_ACCESS_TOKEN)
+			const refreshToken = cookies.get(COOKIES.SB_REFRESH_TOKEN)
 
 			if (accessToken && refreshToken) {
-				return redirect("/dashboard")
+				return redirect("/")
 			}
 		}
 
 		// if (micromatch.isMatch(url.pathname, proptectedAPIRoutes)) {
 		// 	const accessToken = cookies.get("sb-access-token")
-		// 	const refreshToken = cookies.get("sb-refresh-token")
+		// 	const refreshToken = cookies.get(COOKIES.SB_REFRESH_TOKEN)
 
 		// 	// Check for tokens
 		// 	if (!accessToken || !refreshToken) {
@@ -85,33 +91,3 @@ const auth = defineMiddleware(
 		return next()
 	}
 )
-
-// const corsMiddleware = defineMiddleware(async ({ request }, next) => {
-// 	if (request.method === "OPTIONS") {
-// 		let headers = new Headers()
-// 		headers.append("Access-Control-Allow-Origin", "*")
-// 		headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-// 		headers.append(
-// 			"Access-Control-Allow-Headers",
-// 			"Origin, X-Requested-With, Content-Type, Accept"
-// 		)
-// 		return new Response(null, { headers })
-// 	}
-
-// 	const response = await next()
-
-// 	const headers = new Headers(response.headers)
-// 	headers.append("Access-Control-Allow-Origin", "*")
-// 	headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-// 	headers.append(
-// 		"Access-Control-Allow-Headers",
-// 		"Origin, X-Requested-With, Content-Type, Accept"
-// 	)
-
-// 	return new Response(response.body, {
-// 		...response,
-// 		headers: headers,
-// 	})
-// })
-
-export const onRequest = sequence(auth)

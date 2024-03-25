@@ -11,6 +11,12 @@ const { className, avatarUrl } = Astro.props
 	<div
 		class="w-10 rounded-full ring ring-lime-600 ring-offset-2 ring-offset-base-100"
 	>
-		<img src={avatarUrl} alt="annon_profile.webp" />
+		{
+			avatarUrl ? (
+				<img src={avatarUrl} alt="Profile avatar" />
+			) : (
+				<img src="/images/annon_profile.webp" alt="Annonimous profile" />
+			)
+		}
 	</div>
 </div>

@@ -1,7 +1,6 @@
 ---
 import Footer from "@sections/Footer.astro"
 import Navbar from "@sections/Navbar.astro"
-import { ViewTransitions } from "astro:transitions"
 
 interface Props {
 	title: string
@@ -20,12 +19,12 @@ const { title, summary } = Astro.props
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/naruto.svg" />
 		<link rel="canonical" href="https://seritracker.vlorente.dev" />
+		<!-- <ViewTransitions /> -->
 	</head>
 	<body class="h-dvh">
 		<Navbar />
 		<slot />
 		<Footer />
-		<ViewTransitions />
 		<style is:global>
 			:root {
 				color-scheme: dark;
