@@ -21,20 +21,23 @@ const user: UserSession = cookies.get(COOKIES.USER)?.json()
 				</a>
 			</>
 		) : (
-			<div class="dropdown dropdown-end">
-				<div tabindex="0" role="button" class="m-1">
-					<Avatar avatarUrl={user.user_metadata.avatar_url} />
+			<div class="flex flex-row items-center justify-center gap-3">
+				<p class="text-md invisible sm:visible">{user.user_metadata.name}</p>
+				<div class="dropdown dropdown-end ">
+					<div tabindex="0" role="button" class="m-1">
+						<Avatar avatarUrl={user.user_metadata.avatar_url} />
+					</div>
+					<ul class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow">
+						<li>
+							<a href="/profile">Perfil</a>
+						</li>
+						<li>
+							<form action="/api/auth/signout" method="get">
+								<button type="submit">Cerrar sesión</button>
+							</form>
+						</li>
+					</ul>
 				</div>
-				<ul class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow">
-					<li>
-						<a href="/profile">Perfil</a>
-					</li>
-					<li>
-						<form action="/api/auth/signout" method="get">
-							<button type="submit">Cerrar sesión</button>
-						</form>
-					</li>
-				</ul>
 			</div>
 		)
 	}
