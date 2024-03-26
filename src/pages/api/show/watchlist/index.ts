@@ -5,8 +5,6 @@ import { supabase } from "@supabase/supabase"
 import type { APIRoute } from "astro"
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-	console.log("RESQUEST", request)
-
 	// Leer los datos del cuerpo de la solicitud
 	const body: instertBody = await request.json()
 	const userId = cookies.get(COOKIES.USERID)?.value
@@ -54,4 +52,33 @@ export const GET: APIRoute = async ({ request, cookies }) => {
 	const watchingList: AnimeData[] = watching?.map((item) => item.show) || []
 
 	return new Response(JSON.stringify(watchingList))
+}
+
+export const DELETE: APIRoute = async ({ url, cookies }) => {
+	const showId = url.searchParams.get("delete")
+	const userId = cookies.get(COOKIES.USERID)?.value
+
+	if (!userId) {
+		return new Response("User ID not found", { status: 400 })
+	}
+
+	if (!showId) {
+		return new Response("Show ID not found", { status: 400 })
+	}
+
+	const { error } = await supabase
+		.from("watchlist")
+		.delete()
+		.eq("user_id", userId)
+		.eq("mal_id", showId)
+
+	if (error) {
+		return new Response(error.message, { status: 500 })
+	}
+
+	return new Response(
+		JSON.stringify({
+			message: "Elemento eliminado",
+		})
+	)
 }

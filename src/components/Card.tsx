@@ -1,6 +1,8 @@
 import Loading from "@components/Loading"
 import Success from "@icons/Success"
 import type { AnimeDataCard } from "@interfaces/animeResponse"
+import { insertWatching } from "@utils/crud/watching"
+import { insertWatchlist } from "@utils/crud/watchlist"
 import loginCheck from "@utils/loginCheck"
 import { useState } from "preact/hooks"
 
@@ -25,43 +27,23 @@ export default function Card({ show }: Props) {
 
 	const handleWatching = async () => {
 		setLoading(true)
-		const requestOptions = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				show: show,
-			}),
-		}
 
-		const url: string = import.meta.env.DEV
-			? "http://localhost:4321/api/show/watching"
-			: "https://seritracker.vlorente.dev/api/show/watching"
-
-		const response = await fetch(url, requestOptions)
+		const response = await insertWatching(show)
 
 		handleResponse(response)
 		setIsWatching(true)
+		setIsWatchlist(false)
 		setLoading(false)
 	}
 
 	const handleWatchlist = async () => {
 		setLoading(true)
-		const requestOptions = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				show: show,
-			}),
-		}
 
-		const url: string = import.meta.env.DEV
-			? "http://localhost:4321/api/show/watchlist"
-			: "https://seritracker.vlorente.dev/api/show/watchlist"
-
-		const response = await fetch(url, requestOptions)
+		const response = await insertWatchlist(show)
 
 		handleResponse(response)
 		setIsWatchlist(true)
+		setIsWatching(false)
 		setLoading(false)
 	}
 

@@ -1,15 +1,23 @@
 ---
+import RowDeleteButton from "@components/RowDeleteButton"
+import RowUpdateButton from "@components/RowUpdateButton"
+import type { AnimeData } from "@interfaces/animeResponse"
+
 interface Props {
+	show: AnimeData
 	title: string
 	text: string
 	image: string
-	buttonText: string
+	to?: "finished" | "watching"
+	from: "watching" | "watchlist" | "finished"
 }
 
-const { title, text, image, buttonText } = Astro.props
+const { show, title, text, image, to, from } = Astro.props
+const isFinishedPage = from === "finished"
+const id = `show-row-${show.mal_id}`
 ---
 
-<div class="card card-side h-36 bg-gray-200 shadow-xl dark:bg-gray-800">
+<div id={id} class="card card-side h-36 bg-gray-200 shadow-xl dark:bg-gray-800">
 	<figure class="w-2/5">
 		<img class="aspect-square" src={image} alt="Show" />
 	</figure>
@@ -18,10 +26,9 @@ const { title, text, image, buttonText } = Astro.props
 			<h2 class="card-title">{title}</h2>
 			<p class="text-clip text-xs">{text}</p>
 		</div>
-		<div class="h-1/3">
-			<button class="btn btn-ghost btn-block bg-transparent text-white">
-				{buttonText}
-			</button>
+		<div class="mx-3 flex h-1/3 flex-row gap-1">
+			{!isFinishedPage && <RowUpdateButton to={to!} show={show} client:load />}
+			<RowDeleteButton showId={show.mal_id} from={from} client:load />
 		</div>
 	</div>
 </div>

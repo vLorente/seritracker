@@ -46,10 +46,12 @@ const buttonText = "FINALIZAR"
 			watchingList.length > 0 &&
 				watchingList.map((show) => (
 					<Row
+						show={show}
 						title={show.title}
 						text=""
 						image={show.images.webp.image_url}
-						buttonText={buttonText}
+						from="watching"
+						to="finished"
 					/>
 				))
 		}

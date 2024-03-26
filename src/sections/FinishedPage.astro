@@ -47,10 +47,11 @@ const buttonText = "ELIMINAR"
 			finishedList.length > 0 ? (
 				finishedList.map((show) => (
 					<Row
+						show={show}
 						title={show.title}
 						text=""
 						image={show.images.webp.image_url}
-						buttonText={buttonText}
+						from="finished"
 					/>
 				))
 			) : (
