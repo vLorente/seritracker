@@ -40,7 +40,7 @@ export default function RowUpdateButton({ to, show }: Props) {
 
 	return (
 		<button
-			className="btn btn-ghost w-1/2 bg-lime-600 bg-opacity-10 text-white"
+			className="btn btn-ghost w-1/2 bg-lime-600 bg-opacity-80 text-white dark:bg-opacity-10"
 			onClick={handleOnClick}
 		>
 			{text}

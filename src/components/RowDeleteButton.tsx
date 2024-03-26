@@ -40,7 +40,7 @@ export default function RowDeleteButton({ from, showId }: Props) {
 			name="delete"
 			type="submit"
 			value={showId}
-			className="btn btn-ghost w-1/2 bg-red-600 bg-opacity-10 text-white"
+			className="btn btn-ghost w-1/2 bg-red-600 bg-opacity-80 text-white dark:bg-opacity-10"
 			onClick={handleOnClick}
 		>
 			ELIMINAR
