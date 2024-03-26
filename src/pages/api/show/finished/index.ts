@@ -4,8 +4,6 @@ import { supabase } from "@supabase/supabase"
 import type { APIRoute } from "astro"
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-	console.log("RESQUEST", request)
-
 	// Leer los datos del cuerpo de la solicitud
 	const body: instertBody = await request.json()
 	const userId = cookies.get(COOKIES.USERID)?.value
