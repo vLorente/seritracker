@@ -126,7 +126,12 @@ export interface AnimeData {
 	demographics: any[] // Se desconoce la estructura exacta
 }
 
+export interface AnimeDataCard extends AnimeData {
+	watching: boolean
+	watchlist: boolean
+}
+
 export interface AnimeResponse {
 	pagination: Pagination
-	data: AnimeData[]
+	data: AnimeDataCard[]
 }
