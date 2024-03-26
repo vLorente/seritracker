@@ -6,7 +6,7 @@ import SearchBar from "@components/SearchBar"
 import SortSwap from "@components/SortSwap"
 import useFetchJikan from "@hooks/useFetchJikan"
 import { OrderByEnum } from "@interfaces/animeQuery"
-import type { AnimeData } from "@interfaces/animeResponse"
+import type { AnimeDataCard } from "@interfaces/animeResponse"
 import { useState } from "preact/hooks"
 
 export default function Shows() {
@@ -56,7 +56,7 @@ export default function Shows() {
 			{/* Shows Grid */}
 			<body>
 				<div className="grid content-start gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-					{data && data.data.map((item: AnimeData) => <Card show={item} />)}
+					{data && data.data.map((item: AnimeDataCard) => <Card show={item} />)}
 				</div>
 				{loading && (
 					<div className="flex h-20 items-center justify-center">
