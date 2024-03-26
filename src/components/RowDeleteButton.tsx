@@ -1,7 +1,7 @@
 import { deleteFinished } from "@utils/crud/finished"
 import { deleteWatching } from "@utils/crud/watching"
 import { deleteWatchlist } from "@utils/crud/watchlist"
-import { removeElement } from "@utils/removeElement"
+import { removeElementById } from "@utils/removeElement"
 
 interface Props {
 	from: "watching" | "watchlist" | "finished"
@@ -15,19 +15,19 @@ export default function RowDeleteButton({ from, showId }: Props) {
 			case "watchlist":
 				response = await deleteWatchlist(showId)
 				if (response.ok) {
-					removeElement(id)
+					removeElementById(id)
 				}
 				break
 			case "watching":
 				response = await deleteWatching(showId)
 				if (response.ok) {
-					removeElement(id)
+					removeElementById(id)
 				}
 				break
 			case "finished":
 				response = await deleteFinished(showId)
 				if (response.ok) {
-					removeElement(id)
+					removeElementById(id)
 				}
 				break
 			default:

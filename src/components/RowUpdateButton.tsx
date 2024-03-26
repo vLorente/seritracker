@@ -2,7 +2,7 @@ import type { AnimeData } from "@interfaces/animeResponse"
 import { insertFinished } from "@utils/crud/finished"
 import { insertWatching } from "@utils/crud/watching"
 import { insertWatchlist } from "@utils/crud/watchlist"
-import { removeElement } from "@utils/removeElement"
+import { removeElementById } from "@utils/removeElement"
 
 interface Props {
 	to: "finished" | "watching" | "watchlist"
@@ -18,19 +18,19 @@ export default function RowUpdateButton({ to, show }: Props) {
 			case "watchlist":
 				response = await insertWatchlist(show)
 				if (response.ok) {
-					removeElement(id)
+					removeElementById(id)
 				}
 				break
 			case "watching":
 				response = await insertWatching(show)
 				if (response.ok) {
-					removeElement(id)
+					removeElementById(id)
 				}
 				break
 			case "finished":
 				response = await insertFinished(show)
 				if (response.ok) {
-					removeElement(id)
+					removeElementById(id)
 				}
 				break
 			default:

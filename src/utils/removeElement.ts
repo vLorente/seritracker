@@ -1,4 +1,4 @@
-export function removeElement(id: string) {
+export function removeElementById(id: string) {
 	const element = document.getElementById(id)
 	element?.remove()
 }
