@@ -35,6 +35,7 @@ Gracias a la REST API Open Source <a href="https://docs.api.jikan.moe/">Jikan</a
 - [**Typescript**](https://vitest.dev/): JavaScript con sintaxis de tipado.
 - [**GitHub Actions**](https://github.com/features/actions): Un servicio de CI/CD proporcionado por GitHub para automatizar tareas como pruebas, construcción y despliegue.
 - [**Vercel**](https://vercel.com/): Una plataforma de alojamiento en la nube que permite el despliegue rápido y sencillo de aplicaciones web estáticas y dinámicas.
+- [**Supabase**](https://supabase.com): alternativa de código abierto a Firebase. Base de datos Postgres, autenticación, APIs instantáneas, funciones Edge, suscripciones en tiempo real, almacenamiento y vectores de incrustación.
 
 ## ¿Cómo empezar? 🚀
 
