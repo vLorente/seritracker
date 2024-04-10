@@ -1,6 +1,7 @@
 ---
 import LoginButton from "@components/LoginController.astro"
 import ThemeController from "@components/ThemeController"
+import ArrowUpSquare from "@icons/ArrowUpSquare.astro"
 
 interface NavItem {
 	title: string
@@ -72,6 +73,13 @@ const menuItems: NavItem[] = [
 							</>
 						))
 				}
+				<!-- Enlace GitHub -->
+				<li>
+					<a href="https://github.com/vLorente/seritracker" target="_blank"
+						>GitHub
+						<ArrowUpSquare width="16" heigth="16" />
+					</a>
+				</li>
 			</ul>
 		</div>
 		<a href="/" class="btn btn-ghost text-xl"
@@ -109,6 +117,13 @@ const menuItems: NavItem[] = [
 						</>
 					))
 			}
+			<!-- Enlace GitHub -->
+			<li>
+				<a href="https://github.com/vLorente/seritracker" target="_blank"
+					>GitHub
+					<ArrowUpSquare width="16" heigth="16" />
+				</a>
+			</li>
 		</ul>
 	</div>
 
